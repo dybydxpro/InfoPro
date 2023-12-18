@@ -1,0 +1,6 @@
+@InfoPro.GatewayAPI_HostAddress = http://localhost:5226
+
+GET {{InfoPro.GatewayAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
