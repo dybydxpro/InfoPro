@@ -1,0 +1,51 @@
+@import 'variables';
+
+// Backgrounds
+.bg-dark-green {
+    background-color: $dark-green;
+}
+
+.bg-light-green {
+    background-color: $light-green;
+}
+
+// Texts
+
+.text-dark-green {
+    color: $dark-green;
+}
+
+.text-light-green {
+    color: $light-green;
+}
+
+// Button
+.btn-dark-green {
+    background-color: $dark-green;
+
+    &:hover{
+        background-color: rgba($color: $dark-green, $alpha: 0.75);
+    }
+}
+
+.btn-light-green {
+    background-color: $light-green;
+}
+
+// Rings
+.ring-dark-green {
+    --tw-ring-color: $dark-green !important;
+}
+
+.ring-light-green {
+    --tw-ring-color: $light-green !important;
+}
+
+// Border
+.border-dark-green {
+    border-color: $dark-green !important;
+}
+
+.border-light-green {
+    border-color: $light-green !important;
+}
