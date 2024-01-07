@@ -1,17 +1,55 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyPolicy",
+                builder =>
+                {
+                    builder.WithOrigins("*")
+                            .AllowAnyMethod().AllowAnyHeader();
+                });
+});
+
+// Add services to Reverse Proxy.
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 builder.Services.AddOcelot();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Configure Swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CIS GAME API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Jwt Authorization",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -26,6 +64,9 @@ app.UseHttpsRedirection();
 
 app.UseOcelot().Wait();
 
+app.UseCors("MyPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
