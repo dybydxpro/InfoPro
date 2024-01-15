@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace Identity.Data.DbContext
+namespace Identity.Data
 {
     public class AuthDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
@@ -24,12 +24,12 @@ namespace Identity.Data.DbContext
             //{
             //    Id = "ad2a97bf-fc14-4a2a-a932-61a43c33c2d4",
             //    AuthId = 1,
-            //    FirstName = "Tharindu",
-            //    LastName = "Theekshana",
+            //    FirstName = "InfoPro",
+            //    LastName = "Admin",
             //    UserName = "",
             //    NormalizedUserName = "",
-            //    Email = "tharindutd1998@gmail.com",
-            //    NormalizedEmail = "THARINDUTD1998@GMAIL.COM",
+            //    Email = "Admin",
+            //    NormalizedEmail = "ADMIN",
             //    EmailConfirmed = true,
             //    PasswordHash = "AQAAAAIAAYagAAAAEObLLxLkH+6vKjFFpO2IBwa4GEhC8M5xNaoL96P0iq8kaN9xlblLVXf63NXLO9GwSg==",
             //    SecurityStamp = "JDHZZFYQIRO723UUPC57WQJOGKU35NL5",
@@ -42,21 +42,20 @@ namespace Identity.Data.DbContext
             //    AccessFailedCount = 0,
             //});
 
-            //modelBuilder.Entity<IdentityRole>().HasData(
-            //    new IdentityRole()
-            //    {
-            //        Id = "1",
-            //        Name = "Admin",
-            //        NormalizedName = "Admin"
-            //    },
-            //    new IdentityRole()
-            //    {
-            //        Id = "2",
-            //        Name = "User",
-            //        NormalizedName = "User"
-            //    }
-            //);
-
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole()
+                {
+                    Id = "1",
+                    Name = ApplicationRoles.SUPER_ADMIN,
+                    NormalizedName = "SuperAdmin"
+                },
+                new IdentityRole()
+                {
+                    Id = "2",
+                    Name = ApplicationRoles.HR_ADMIN,
+                    NormalizedName = "HRAdmin"
+                });
+            
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,5 +1,7 @@
 .vs
+.idea
 /*/.vs
 /*/.vscode
+/*/.idea
 /*/bin
 /*/obj
