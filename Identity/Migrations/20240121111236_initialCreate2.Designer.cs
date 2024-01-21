@@ -4,6 +4,7 @@ using Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    partial class AuthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121111236_initialCreate2")]
+    partial class initialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,9 +195,6 @@ namespace Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -243,27 +243,6 @@ namespace Identity.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846",
-                            AccessFailedCount = 0,
-                            AuthId = 1,
-                            ConcurrencyStamp = "776c7622-8ad0-484c-bf59-fb390dda1389",
-                            Email = "tharindutd1998@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "InfoPro",
-                            LastName = "Admin",
-                            LockoutEnabled = true,
-                            NormalizedEmail = "THARINDUTD1998@GMAIL.COM",
-                            NormalizedUserName = "THARINDUTD1998@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO2NZlDTC/AeRvEjQo61i7uEks7JlX0uxUFaBUIQlLiGiSZxHu7uIW43BUEoxe1fAA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ENOMQ2ITQD77EWDHLT572ZGEFSI3GDOO",
-                            TwoFactorEnabled = false,
-                            UserName = "tharindutd1998@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

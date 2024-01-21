@@ -4,7 +4,7 @@ using Identity.Repositories.Context;
 
 namespace Identity.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IIdentityRepository _identityRepository;

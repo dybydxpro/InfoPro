@@ -8,26 +8,46 @@ namespace Identity.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             DateTime now = DateTime.Now;
 
-            //modelBuilder.Entity<User>()
-            //    .HasData(new User
-            //    {
-            //        Id = 1,
-            //        AuthId = 1,
-            //        UserIdentifier = "ad2a97bf-fc14-4a2a-a932-61a43c33c2d4",
-            //        FirstName = "Tharindu",
-            //        LastName = "Theekshana",
-            //        UserName = "TharuBro",
-            //        Email = "tharindutd1998@gmail.com",
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 1,
+                    CompanyId = 1,
+                    AuthId = 1,
+                    UserIdentifier = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846",
+                    FirstName = "InfoPro",
+                    LastName = "Admin",
+                    Email = "tharindutd1998@gmail.com",
+                    Phone = "0779200039",
 
-            //        IsDeleted = false,
-            //        CreatedOn = now,
-            //        UpdatedOn = now,
-            //    });
+                    IsDeleted = false,
+                    CreatedOn = now,
+                    UpdatedOn = now,
+                });
+
+            modelBuilder.Entity<Company>()
+                .HasData(new Company
+                {
+                    Id = 1,
+                    CompanyName = "InfoPro",
+                    AddressLine1 = "No 271",
+                    AddressLine2 = "Main Street",
+                    City = "Matara",
+                    PostalCode = "81000",
+                    CompanyEmail = "tharindutd1998@gmail.com",
+                    CompanyContact = "0779200039",
+                    Website = "infopro.com",
+                    AdminIdentifire = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846",
+                    IsDeleted = false,
+                    CreatedOn = now,
+                    UpdatedOn = now,
+                }) ;
         }
     }
 }

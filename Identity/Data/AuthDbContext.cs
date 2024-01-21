@@ -20,27 +20,28 @@ namespace Identity.Data
                 b.Property(e => e.AuthId).Metadata.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
             });
 
-            //modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
-            //{
-            //    Id = "ad2a97bf-fc14-4a2a-a932-61a43c33c2d4",
-            //    AuthId = 1,
-            //    FirstName = "InfoPro",
-            //    LastName = "Admin",
-            //    UserName = "",
-            //    NormalizedUserName = "",
-            //    Email = "Admin",
-            //    NormalizedEmail = "ADMIN",
-            //    EmailConfirmed = true,
-            //    PasswordHash = "AQAAAAIAAYagAAAAEObLLxLkH+6vKjFFpO2IBwa4GEhC8M5xNaoL96P0iq8kaN9xlblLVXf63NXLO9GwSg==",
-            //    SecurityStamp = "JDHZZFYQIRO723UUPC57WQJOGKU35NL5",
-            //    ConcurrencyStamp = "b7bce4e8-ec2d-4551-9f70-54abcd5fdde5",
-            //    PhoneNumber = null,
-            //    PhoneNumberConfirmed = false,
-            //    TwoFactorEnabled = false,
-            //    LockoutEnd = null,
-            //    LockoutEnabled = true,
-            //    AccessFailedCount = 0,
-            //});
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
+            {
+                Id = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846",
+                AuthId = 1,
+                FirstName = "InfoPro",
+                LastName = "Admin",
+                UserName = "tharindutd1998@gmail.com",
+                NormalizedUserName = "THARINDUTD1998@GMAIL.COM",
+                Email = "tharindutd1998@gmail.com",
+                NormalizedEmail = "THARINDUTD1998@GMAIL.COM",
+                EmailConfirmed = true,
+                PasswordHash = "AQAAAAIAAYagAAAAEO2NZlDTC/AeRvEjQo61i7uEks7JlX0uxUFaBUIQlLiGiSZxHu7uIW43BUEoxe1fAA==",
+                SecurityStamp = "ENOMQ2ITQD77EWDHLT572ZGEFSI3GDOO",
+                ConcurrencyStamp = "776c7622-8ad0-484c-bf59-fb390dda1389",
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+                ImageUrl = null,
+            }) ;
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole()

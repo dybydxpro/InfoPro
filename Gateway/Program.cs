@@ -17,6 +17,16 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to Reverse Proxy.
+//if (builder.Environment.IsDevelopment())
+//{
+//    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+//    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+//}
+//else
+//{
+//    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+//    .AddJsonFile("ocelot-release.json", optional: false, reloadOnChange: true);
+//}
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 builder.Services.AddOcelot();
@@ -27,7 +37,7 @@ builder.Services.AddEndpointsApiExplorer();
 // Configure Swagger
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CIS GAME API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "InfoPro Gateway", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Jwt Authorization",
@@ -54,11 +64,9 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

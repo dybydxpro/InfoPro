@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "f7730966-d9d6-460f-8908-f1caba68981e",
+		"name": "InfoPro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18027879",
+		"_collection_link": "https://speeding-satellite-956340-1.postman.co/workspace/My-Workspace~9c270fac-12b0-4930-8734-fba5940becbb/collection/18027879-f7730966-d9d6-460f-8908-f1caba68981e?action=share&source=collection_link&creator=18027879"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"tharindutd1998@gmail.com\",\r\n  \"password\": \"Tharindu@9651\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/{{Identity}}/login",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"{{Identity}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"firstName\": \"Sithmi\",\r\n    \"lastName\": \"Maleesha\",\r\n    \"email\": \"sithmi@email.com\",\r\n    \"phone\": \"0779200039\",\r\n    \"password\": \"Abc@1234\"\r\n  },\r\n  \"company\": {\r\n    \"companyName\": \"ABC Company\",\r\n    \"addressLine1\": \"152\",\r\n    \"addressLine2\": \"Main Road\",\r\n    \"city\": \"Galle\",\r\n    \"postalCode\": \"80000\",\r\n    \"companyEmail\": \"sithmi@email.com\",\r\n    \"companyContact\": \"0779200039\",\r\n    \"website\": \"abc.com\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/{{Identity}}/register/:role",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"{{Identity}}",
+								"register",
+								":role"
+							],
+							"variable": [
+								{
+									"key": "role",
+									"value": "HRAdmin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
