@@ -72,7 +72,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-var app = builder.Build();
+var app = builder  .Build();
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Identity"));
@@ -80,11 +80,11 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Ide
 
 using (var scope = app.Services.CreateScope())
 {
-    var authDbContext = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-    authDbContext.Database.Migrate();
-
     var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     applicationDbContext.Database.Migrate();
+
+    var authDbContext = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+    authDbContext.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

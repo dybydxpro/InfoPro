@@ -31,5 +31,12 @@ namespace Identity.Controllers
         {
             return Ok(await authRepository.Registeration(model, role));
         }
+
+        [HttpGet]
+        [Route("test")]
+        public async Task<ActionResult<(int, string)>> Test()
+        {
+            return Ok("Hi! I'm working");
+        }
     }
 }
