@@ -72,11 +72,16 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-var app = builder  .Build();
+var app = builder.Build();
 
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    // app.UseSwaggerUI();
+//    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Identity v1"));
+//}
 app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Identity"));
-
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Identity v1"));
 
 using (var scope = app.Services.CreateScope())
 {

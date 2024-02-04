@@ -17,19 +17,11 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to Reverse Proxy.
-//if (builder.Environment.IsDevelopment())
-//{
-//    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+//builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
 //    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
-//}
-//else
-//{
-//    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-//    .AddJsonFile("ocelot-release.json", optional: false, reloadOnChange: true);
-//}
-builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
-builder.Services.AddOcelot();
+//builder.Services.AddOcelot();
+builder.Configuration.AddJsonFile("ocelot.json", optional: true, reloadOnChange: true);
+builder.Services.AddOcelot(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -68,7 +60,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Gateway v1"));
 
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseOcelot().Wait();
 
