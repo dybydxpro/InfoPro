@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "infopro_identity",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/gateway/authenticate/{everything}",
