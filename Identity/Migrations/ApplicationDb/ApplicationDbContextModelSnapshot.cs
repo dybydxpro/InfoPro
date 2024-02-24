@@ -88,12 +88,157 @@ namespace Identity.Migrations.ApplicationDb
                             CompanyContact = "0779200039",
                             CompanyEmail = "tharindutd1998@gmail.com",
                             CompanyName = "InfoPro",
-                            CreatedOn = new DateTime(2024, 1, 21, 18, 31, 8, 822, DateTimeKind.Local).AddTicks(9006),
+                            CreatedOn = new DateTime(2024, 2, 24, 23, 3, 2, 606, DateTimeKind.Local).AddTicks(4489),
                             IsDeleted = false,
                             PostalCode = "81000",
-                            UpdatedOn = new DateTime(2024, 1, 21, 18, 31, 8, 822, DateTimeKind.Local).AddTicks(9006),
+                            UpdatedOn = new DateTime(2024, 2, 24, 23, 3, 2, 606, DateTimeKind.Local).AddTicks(4489),
                             Website = "infopro.com"
                         });
+                });
+
+            modelBuilder.Entity("Identity.Modals.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Identity.Modals.Designation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DesignationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Designation");
+                });
+
+            modelBuilder.Entity("Identity.Modals.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("DOB")
+                        .HasColumnType("date");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DesignationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NIC")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DesignationId");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Identity.Modals.User", b =>
@@ -149,15 +294,42 @@ namespace Identity.Migrations.ApplicationDb
                             Id = 1,
                             AuthId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 1, 21, 18, 31, 8, 822, DateTimeKind.Local).AddTicks(9006),
+                            CreatedOn = new DateTime(2024, 2, 24, 23, 3, 2, 606, DateTimeKind.Local).AddTicks(4489),
                             Email = "tharindutd1998@gmail.com",
                             FirstName = "InfoPro",
                             IsDeleted = false,
                             LastName = "Admin",
                             Phone = "0779200039",
-                            UpdatedOn = new DateTime(2024, 1, 21, 18, 31, 8, 822, DateTimeKind.Local).AddTicks(9006),
+                            UpdatedOn = new DateTime(2024, 2, 24, 23, 3, 2, 606, DateTimeKind.Local).AddTicks(4489),
                             UserIdentifier = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846"
                         });
+                });
+
+            modelBuilder.Entity("Identity.Modals.Employee", b =>
+                {
+                    b.HasOne("Identity.Modals.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Identity.Modals.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Identity.Modals.Designation", "Designation")
+                        .WithMany()
+                        .HasForeignKey("DesignationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Designation");
                 });
 
             modelBuilder.Entity("Identity.Modals.User", b =>

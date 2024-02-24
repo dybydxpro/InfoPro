@@ -2,11 +2,23 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/auth/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7002
+          "Host": "infopro_identity",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/gateway/authenticate/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Patch" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/hr/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "infopro_identity",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/gateway/authenticate/{everything}",
@@ -14,6 +26,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7001"
+    "BaseUrl": "http://localhost:5001"
   }
 }
