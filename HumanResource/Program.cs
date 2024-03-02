@@ -1,6 +1,9 @@
 using System.Text;
+using HumanResource.Data;
+using HumanResource.Services;
+using HumanResource.Services.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -10,16 +13,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "MyPolicy",
-                builder =>
-                {
-                    builder.WithOrigins("*")
-                            .AllowAnyMethod().AllowAnyHeader();
-                });
+        builder =>
+        {
+            builder.WithOrigins("*")
+                .AllowAnyMethod().AllowAnyHeader();
+        });
 });
 
-// Add services to Reverse Proxy.
-builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-// builder.Services.AddOcelot(builder.Configuration);
+builder.Services.AddDbContext<HumanResourceDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecionProd")));
+
+builder.Services.AddTransient<IHumanResourceUnitOfWork, HumanResourceUnitOfWork>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddTransient<IDepartmentService, DepartmentService>();
+builder.Services.AddTransient<IDesignationService, DesignationService>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -44,22 +51,15 @@ builder.Services.AddAuthentication(options =>
         }
     );
 
-builder.Services.AddRateLimiter(rateLimiterOptions =>
-{
-    rateLimiterOptions.AddFixedWindowLimiter("fixed", options =>
-    {
-        options.Window = TimeSpan.FromSeconds(10);
-        options.PermitLimit = 5;
-    });
-});
+// Add Principle
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Configure Swagger
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "InfoPro Gateway", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "InfoPro HumanResources", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Jwt Authorization",
@@ -85,17 +85,14 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Gateway v1"));
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Identity v1"));
 
-app.UseRateLimiter();
-app.MapReverseProxy();
-// app.UseOcelot().Wait();
+// app.UseHttpsRedirection();
 
 app.UseCors("MyPolicy");
 
-app.UseAuthentication();
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();

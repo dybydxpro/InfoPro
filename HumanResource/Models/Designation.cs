@@ -12,7 +12,6 @@ public class Designation: IEntity
 
     #region Audit Fields
     public bool IsDeleted { get; set; }
-    public byte[] Timestamp { get; set; }
     public int CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
     public int UpdatedBy { get; set; }

@@ -1,7 +1,9 @@
 .vs
 .idea
+.sonarqube
 /*/.vs
 /*/.vscode
+/*/.sonarqube
 /*/.idea
 /*/bin
 /*/obj

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HumanResource.Models.Entity;
+﻿using Identity.Modals.Entity;
+using System.ComponentModel.DataAnnotations;
 
-namespace HumanResource.Models
+namespace Identity.Modals
 {
     public class Department: IEntity
     {

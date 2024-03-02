@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HumanResource.Models.Entity;
+﻿using Identity.Modals.Entity;
+using System.ComponentModel.DataAnnotations;
 
-namespace HumanResource.Models
+namespace Identity.Modals
 {
-    public class Department: IEntity
+    public class Designation: IEntity
     {
         [Key]
         public int Id { get; set; }
         public int CompanyId { get; set; }
-        public string DepartmentName { get; set; }
+        public string DesignationName {  get; set; }
 
         #region Audit Fields
         public bool IsDeleted { get; set; }

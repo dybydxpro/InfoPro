@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 using HumanResource.Models.Entity;
 
 namespace HumanResource.Models;
@@ -16,14 +18,14 @@ public class Employee: IEntity
     public string NIC { get; set; }
     public int DesignationId { get; set; }
     public int DepartmentId { get; set; }
-
-    public virtual Company Company { get; set; }
-    public virtual Designation Designation { get; set; }
-    public virtual Department Department { get; set; }
+    
+    public virtual Company? Company { get; set; }
+    public virtual Designation? Designation { get; set; }
+    public virtual Department? Department { get; set; }
 
     #region Audit Fields
     public bool IsDeleted { get; set; }
-    public byte[] Timestamp { get; set; }
+
     public int CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
     public int UpdatedBy { get; set; }

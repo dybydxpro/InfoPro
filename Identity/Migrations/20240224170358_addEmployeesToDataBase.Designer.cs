@@ -4,16 +4,19 @@ using Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Identity.Migrations.ApplicationDb
+namespace Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240224170358_addEmployeesToDataBase")]
+    partial class addEmployeesToDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,10 +91,10 @@ namespace Identity.Migrations.ApplicationDb
                             CompanyContact = "0779200039",
                             CompanyEmail = "tharindutd1998@gmail.com",
                             CompanyName = "InfoPro",
-                            CreatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            CreatedOn = new DateTime(2024, 2, 24, 22, 33, 57, 131, DateTimeKind.Local).AddTicks(7411),
                             IsDeleted = false,
                             PostalCode = "81000",
-                            UpdatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            UpdatedOn = new DateTime(2024, 2, 24, 22, 33, 57, 131, DateTimeKind.Local).AddTicks(7411),
                             Website = "infopro.com"
                         });
                 });
@@ -119,6 +122,9 @@ namespace Identity.Migrations.ApplicationDb
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("int");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
@@ -154,6 +160,9 @@ namespace Identity.Migrations.ApplicationDb
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("int");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
@@ -200,10 +209,6 @@ namespace Identity.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -211,9 +216,8 @@ namespace Identity.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NIC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("int");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
@@ -240,10 +244,10 @@ namespace Identity.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthId")
+                    b.Property<int?>("AuthId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -285,13 +289,13 @@ namespace Identity.Migrations.ApplicationDb
                             Id = 1,
                             AuthId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            CreatedOn = new DateTime(2024, 2, 24, 22, 33, 57, 131, DateTimeKind.Local).AddTicks(7411),
                             Email = "tharindutd1998@gmail.com",
                             FirstName = "InfoPro",
                             IsDeleted = false,
                             LastName = "Admin",
                             Phone = "0779200039",
-                            UpdatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            UpdatedOn = new DateTime(2024, 2, 24, 22, 33, 57, 131, DateTimeKind.Local).AddTicks(7411),
                             UserIdentifier = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846"
                         });
                 });
@@ -327,9 +331,7 @@ namespace Identity.Migrations.ApplicationDb
                 {
                     b.HasOne("Identity.Modals.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
                 });
