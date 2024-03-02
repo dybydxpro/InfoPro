@@ -21,7 +21,6 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<HumanResourceDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
-//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecionProd")));
 
 builder.Services.AddTransient<IHumanResourceUnitOfWork, HumanResourceUnitOfWork>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();

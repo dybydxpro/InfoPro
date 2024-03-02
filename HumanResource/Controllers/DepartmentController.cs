@@ -1,17 +1,18 @@
 ﻿using HumanResource.Models;
 using HumanResource.Services.Context;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResource.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     [Authorize]
     public class DepartmentController : ControllerBase
     {
         protected readonly IDepartmentService _departmentService;
-        
+
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;

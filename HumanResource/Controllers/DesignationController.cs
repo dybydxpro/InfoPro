@@ -1,22 +1,23 @@
 ﻿using HumanResource.Models;
 using HumanResource.Services.Context;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResource.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     [Authorize]
     public class DesignationController : ControllerBase
     {
-        protected readonly IDesignationService _designationService;
-        
+        private readonly IDesignationService _designationService;
+
         public DesignationController(IDesignationService designationService)
         {
             _designationService = designationService;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<List<Designation>>> GetDesignations()
         {
