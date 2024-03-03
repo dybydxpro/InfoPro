@@ -1,6 +1,7 @@
 ﻿using HumanResource.Data;
 using HumanResource.Models;
 using HumanResource.Services.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace HumanResource.Services
 {

@@ -1,6 +1,7 @@
 ﻿using HumanResource.Data;
 using HumanResource.Models;
 using HumanResource.Services.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace HumanResource.Services;
 
@@ -17,13 +18,13 @@ public class EmployeeService: IEmployeeService
 
     public List<Employee> GetEmployee()
     {
-        List<Employee> employee = _unitOfWork.EmployeeRepository.GetAll().ToList();
+        List<Employee> employee = _unitOfWork.EmployeeRepository.GetAll().Include(e => e.Designation).Include(e => e.Department).Include(e => e.Company).ToList();
         return employee;
     }
 
     public Employee GetEmployeeById(int id)
     {
-        Employee employee = _unitOfWork.EmployeeRepository.GetAll().Where(e => e.Id == id).FirstOrDefault();
+        Employee employee = _unitOfWork.EmployeeRepository.GetAll().Include(e => e.Designation).Include(e => e.Department).Include(e => e.Company).Where(e => e.Id == id).FirstOrDefault();
         return employee;
     }
     

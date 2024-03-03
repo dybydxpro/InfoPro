@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Security;
 using HumanResource.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace HumanResource.Data
         private readonly ILogger logger;
         private readonly DbSet<TEntity> DbSet;
 
-        public BaseRepository(HumanResourceDbContext context, ILogger logger,int companyId, int userId)
+        public BaseRepository(HumanResourceDbContext context, ILogger logger, int companyId, int userId)
         {
             Context = context;
             this.logger = logger;
@@ -31,7 +32,7 @@ namespace HumanResource.Data
 
             if (filter != null)
             {
-                query = query.Where(a => !a.IsDeleted).Where(filter);
+                query = query.Where(a => a.CompanyId == CompanyId && !a.IsDeleted).Where(filter);
             }
 
             foreach (var includeProperty in includeProperties.Split
@@ -52,12 +53,12 @@ namespace HumanResource.Data
 
         public virtual IQueryable<TEntity> GetAll()
         {
-            return DbSet.Where(a => !a.IsDeleted);
+            return DbSet.Where(a => a.CompanyId == CompanyId && !a.IsDeleted);
         }
 
         public virtual TEntity GetById(int id)
         {
-            return DbSet.FirstOrDefault(a => !a.IsDeleted && a.Id == id);
+            return DbSet.FirstOrDefault(a => a.CompanyId == CompanyId && !a.IsDeleted && a.Id == id);
         }
 
         public virtual TEntity GetById(int? id)
@@ -74,7 +75,7 @@ namespace HumanResource.Data
             if (id.HasValue)
             {
                 IQueryable<TEntity> query = DbSet;
-                query = query.Where(a => !a.IsDeleted && a.Id == id);
+                query = query.Where(a => a.CompanyId == CompanyId && !a.IsDeleted && a.Id == id);
 
                 foreach (var includeProperty in includeProperties.Split
                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
@@ -89,15 +90,13 @@ namespace HumanResource.Data
 
         public virtual void Insert(TEntity entity)
         {
-            DateTime now = DateTime.Now;
-
-            entity.IsDeleted = false;
+            var dateTime = DateTime.Now;
+            entity.CompanyId = this.CompanyId;
             entity.CreatedBy = UserId;
-            entity.CreatedOn = now;
+            entity.CreatedOn = dateTime;
             entity.UpdatedBy = UserId;
-            entity.UpdatedOn = now;
+            entity.UpdatedOn = dateTime;
             DbSet.Add(entity);
-            Context.Entry(entity).State = 0;
 
             logger.LogInformation($"INSERT: {GetLoggerProps(entity)}");
         }
@@ -110,17 +109,26 @@ namespace HumanResource.Data
 
         public virtual void Delete(TEntity entity)
         {
+            if (entity.CompanyId != CompanyId)
+            {
+                throw new SecurityException(String.Format("Tenant access violation, user doesn't have access to tenant : {0}", entity.CompanyId));
+            }
+
             entity.IsDeleted = true;
             entity.UpdatedBy = UserId;
             entity.UpdatedOn = DateTime.Now;
             DbSet.Attach(entity);
-            Context.Entry(entity).State = 0;
+            Context.Entry(entity).State = EntityState.Modified;
 
             logger.LogInformation($"DELETE: {GetLoggerProps(entity)}");
         }
 
         public virtual void Update(TEntity entity)
         {
+            if (entity.CompanyId != CompanyId)
+            {
+                throw new SecurityException(String.Format("Tenant access violation, user doesn't have access to tenant : {0}", entity.CompanyId));
+            }
             entity.UpdatedBy = UserId;
             entity.UpdatedOn = DateTime.Now;
             DbSet.Attach(entity);
@@ -154,6 +162,7 @@ namespace HumanResource.Data
             {
                 { "Entity name", entity.GetType().Name },
                 { "User Id", UserId.ToString() },
+                { "Tenant Id", CompanyId.ToString() },
                 { "Entity", jsonEntity }
             };
 
