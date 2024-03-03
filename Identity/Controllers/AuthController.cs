@@ -1,4 +1,5 @@
-﻿using Identity.Modals.Auth;
+﻿using Identity.Modals;
+using Identity.Modals.Auth;
 using Identity.Repositories.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -36,11 +37,11 @@ namespace Identity.Controllers
             return Ok(await authRepository.Registeration(model, role));
         }
 
-        [HttpGet]
-        [Route("test")]
-        public async Task<ActionResult<(int, string)>> Test()
+        [HttpPost]
+        [Route("reguser/{role}")]
+        public async Task<ActionResult<(int, string)>> RegisterUser(User user, string role)
         {
-            return Ok("Hi! I'm working");
+            return Ok(await authRepository.RegisterationUser(user, role));
         }
     }
 }

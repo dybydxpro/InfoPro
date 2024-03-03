@@ -16,13 +16,17 @@ namespace Identity.Repositories
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IConfiguration _configuration;
+        private readonly IIdentityRepository _identityRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext applicationDbContext, IConfiguration configuration)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext applicationDbContext, IConfiguration configuration, IIdentityRepository identityRepository, IUserRepository userRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _applicationDbContext = applicationDbContext;
             _configuration = configuration;
+            _identityRepository = identityRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<(int, string)> Registeration(RegistrationModel model, string role)
@@ -69,6 +73,49 @@ namespace Identity.Repositories
             model.User.CreatedOn = now;
             model.User.UpdatedOn = now;
             User user1 = model.User;
+            await _applicationDbContext.Users.AddAsync(user1);
+            await _applicationDbContext.SaveChangesAsync();
+            await _applicationDbContext.Entry(user1).ReloadAsync();
+
+            return (1, "User created successfully!");
+        }
+
+        public async Task<(int, string)> RegisterationUser(User model, string role)
+        {
+            DateTime now = DateTime.Now;
+            var currentUser = await _identityRepository.FindByIdAsync();
+            if (currentUser != null)
+                throw new Exception("User already exists");
+            var cur = await _userRepository.GetUserData();
+
+            ApplicationUser user = new()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
+            };
+            var createUserResult = await _userManager.CreateAsync(user, model.Password.ToString());
+
+            if (!createUserResult.Succeeded)
+                throw new Exception("User creation failed! Please check user details and try again.");
+
+            if (!await _roleManager.RoleExistsAsync(role))
+                await _roleManager.CreateAsync(new IdentityRole(role));
+
+            if (await _roleManager.RoleExistsAsync(role))
+                await _userManager.AddToRoleAsync(user, role);
+
+            var usr = await _userManager.FindByEmailAsync(model.Email);
+
+            model.CompanyId = cur.CompanyId;
+            model.AuthId = usr.AuthId;
+            model.UserIdentifier = usr.Id;
+            model.IsDeleted = false;
+            model.CreatedOn = now;
+            model.UpdatedOn = now;
+            User user1 = model;
             await _applicationDbContext.Users.AddAsync(user1);
             await _applicationDbContext.SaveChangesAsync();
             await _applicationDbContext.Entry(user1).ReloadAsync();
