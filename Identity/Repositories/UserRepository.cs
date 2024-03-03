@@ -21,6 +21,11 @@ namespace Identity.Repositories
             return _dbContext.Users.Where(u => u.UserIdentifier == identityUser.Id).FirstOrDefault();
         }
 
+        public async Task<User> GetUserDataById(string id)
+        {
+            return _dbContext.Users.Where(u => u.UserIdentifier == id).FirstOrDefault();
+        }
+
         public void AddUser(User user)
         {
             _dbContext.Users.Add(user);

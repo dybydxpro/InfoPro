@@ -11,14 +11,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     let token: any = "";
-    if(localStorage.getItem('token')){
+    if(typeof localStorage !== 'undefined' && localStorage.getItem('token') !== 'undefined'){
       token = localStorage.getItem('token');
     }
     this.headers = new HttpHeaders().append("content-type", "application/json").append("authenticate", `Bearer ${token}`);
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${env.baseUrl}/${env.authUrl}/Auth/login`, credentials, {'headers': this.headers});
+    return this.http.post<any>(`${env.baseUrl}/${env.authUrl}/Auth/login`, credentials);
   }
 
   register(regData: any, role: string): Observable<any> {

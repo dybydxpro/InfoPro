@@ -4,6 +4,7 @@ using Identity.Repositories.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Identity.Controllers
 {
@@ -26,7 +27,9 @@ namespace Identity.Controllers
             var (status, message) = await authRepository.Login(model);
             if (status == 0)
                 return BadRequest(message);
-            return Ok(message);
+
+            string json = JsonConvert.SerializeObject(message);
+            return Ok(json);
         }
 
         [HttpPost]

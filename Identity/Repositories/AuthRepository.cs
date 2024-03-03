@@ -3,6 +3,7 @@ using Identity.Modals;
 using Identity.Modals.Auth;
 using Identity.Repositories.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,17 +17,17 @@ namespace Identity.Repositories
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IConfiguration _configuration;
-        private readonly IIdentityRepository _identityRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationDbContext _dbContext;
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext applicationDbContext, IConfiguration configuration, IIdentityRepository identityRepository, IUserRepository userRepository)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext applicationDbContext, IConfiguration configuration, IHttpContextAccessor contextAccessor, ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _applicationDbContext = applicationDbContext;
             _configuration = configuration;
-            _identityRepository = identityRepository;
-            _userRepository = userRepository;
+            _contextAccessor = contextAccessor;
+            _dbContext = dbContext;
         }
 
         public async Task<(int, string)> Registeration(RegistrationModel model, string role)
@@ -83,10 +84,12 @@ namespace Identity.Repositories
         public async Task<(int, string)> RegisterationUser(User model, string role)
         {
             DateTime now = DateTime.Now;
-            var currentUser = await _identityRepository.FindByIdAsync();
-            if (currentUser != null)
-                throw new Exception("User already exists");
-            var cur = await _userRepository.GetUserData();
+            var userIdentifier = _contextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var currentUser = await _userManager.FindByIdAsync(userIdentifier);
+            if (currentUser == null)
+                throw new Exception("Unknown user!");
+            var cur = _dbContext.Users.Where(u => u.UserIdentifier == userIdentifier).FirstOrDefault();
 
             ApplicationUser user = new()
             {
@@ -123,7 +126,7 @@ namespace Identity.Repositories
             return (1, "User created successfully!");
         }
 
-        public async Task<(int, string)> Login(LoginModel model)
+        public async Task<(int, dynamic)> Login(LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Email);
             if (user == null)
@@ -146,7 +149,10 @@ namespace Identity.Repositories
                 authClaims.Add(new Claim(ClaimTypes.Role, userRole));
             }
             string token = GenerateToken(authClaims);
-            return (1, token);
+            Credts credts = new Credts();
+            credts.Token = token;
+
+            return (1, credts);
         }
 
         private string GenerateToken(IEnumerable<Claim> claims)
@@ -166,5 +172,10 @@ namespace Identity.Repositories
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+    }
+
+    public class Credts()
+    {
+        public string Token { get; set; }
     }
 }

@@ -17,7 +17,23 @@ export class EmployeeService {
     this.headers = new HttpHeaders().append("content-type", "application/json").append("authenticate", `Bearer ${token}`);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${env.baseUrl}/${env.authUrl}/Auth/login`, credentials, {'headers': this.headers});
+  getAllEmployees(): Observable<any> {
+    return this.http.get<any>(`${env.baseUrl}/${env.hrUrl}/Employee`, {'headers': this.headers});
+  }
+
+  getEmployeeById(id: number): Observable<any> {
+    return this.http.get<any>(`${env.baseUrl}/${env.hrUrl}/Employee/${id}`, {'headers': this.headers});
+  }
+
+  postEmployee(employee: any): Observable<any> {
+    return this.http.post<any>(`${env.baseUrl}/${env.hrUrl}/Employee`, employee, {'headers': this.headers});
+  }
+
+  putEmployee(employee: any): Observable<any> {
+    return this.http.put<any>(`${env.baseUrl}/${env.hrUrl}/Employee`, employee, {'headers': this.headers});
+  }
+
+  deleteEmployee(id: number): Observable<any> {
+    return this.http.delete<any>(`${env.baseUrl}/${env.hrUrl}/Employee/${id}`, {'headers': this.headers});
   }
 }
