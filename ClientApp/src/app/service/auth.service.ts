@@ -14,7 +14,10 @@ export class AuthService {
     if(typeof localStorage !== 'undefined' && localStorage.getItem('token') !== 'undefined'){
       token = localStorage.getItem('token');
     }
-    this.headers = new HttpHeaders().append("content-type", "application/json").append("authenticate", `Bearer ${token}`);
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
   }
 
   login(credentials: any): Observable<any> {

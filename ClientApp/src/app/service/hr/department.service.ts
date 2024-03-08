@@ -11,10 +11,13 @@ export class DepartmentService {
 
   constructor(private http: HttpClient) {
     let token: any = "";
-    if(localStorage.getItem('token')){
+    if(typeof localStorage !== 'undefined' && localStorage.getItem('token') !== 'undefined'){
       token = localStorage.getItem('token');
     }
-    this.headers = new HttpHeaders().append("content-type", "application/json").append("authenticate", `Bearer ${token}`);
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
   }
 
   getAllDepartments(): Observable<any> {

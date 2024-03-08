@@ -10,11 +10,14 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { GeneralComponent } from './components/general/general.component';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
+import { DashboardTileComponent } from './components/general/dashboard-tile/dashboard-tile.component';
+import { PageNotFoundComponent } from './components/common/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
   {path: "register", component: RegisterComponent},
-  {path: "home", component: GeneralComponent}
+  {path: "home", component: GeneralComponent},
+  {path: "**", component: PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -23,7 +26,9 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     GeneralComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardTileComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+.general_dashboardContainer { 
+    background-image: url('./../../../assets/X-1x1.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+    border-radius: 1rem;
+}
+
+.general_tileContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
+    width: 50%;
+}

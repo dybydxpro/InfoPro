@@ -6,6 +6,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './../../../service/auth.service';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: UntypedFormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentiols).subscribe(
       (res: any) => {
         localStorage.setItem("token", res.Token);
-        this.router.navigate(['/home']);
+        this.userService.userDetails().subscribe(
+          (res: any) => {
+            localStorage.setItem("user", JSON.stringify(res));
+            this.router.navigate(['/home']);
+          }, (err: any) => {
+            console.error(err);
+          }
+        );
       },
       (err: any) => {
         console.error(err);

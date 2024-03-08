@@ -21,7 +21,19 @@
           </nz-badge>
         </div>
         <div>
-          <nz-avatar nzText="UX"></nz-avatar>
+          <nz-avatar [nzText]="getAvatarVal()" nz-popover nzPopoverTrigger="click" [nzPopoverContent]="userMenuContent" nzPopoverPlacement="leftTop"></nz-avatar>
+          <ng-template #userMenuContent class="navbar_popup">
+            <div class="text-center m-3">
+               <nz-avatar [nzText]="getAvatarVal()" style="color: #ffffff; background-color: #0a818c !important;"></nz-avatar>
+               <div class="text-center">
+                  <div style="font-weight: 500;" class="mt-2">{{ user.firstName }} {{ user.lastName }}</div>
+                  <div>{{ user.email }}</div>
+                  <a nz-button class="btn btn-red Single-button mt-2" nzShape="round" nzType="primary" (click)="onLogout()" title="Logout">
+                     <em nz-icon nzType="logout" nzTheme="outline"></em> Logout
+                  </a>
+               </div>
+            </div>
+         </ng-template>
         </div>
       </div>
     </div>
