@@ -3,10 +3,13 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzModule } from './common/nz.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { GeneralComponent } from './components/general/general.component';
+import { NavbarComponent } from './components/common/navbar/navbar.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -19,14 +22,17 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    GeneralComponent
+    GeneralComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NzModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration()
