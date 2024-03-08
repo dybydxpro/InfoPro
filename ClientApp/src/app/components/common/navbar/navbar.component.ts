@@ -11,7 +11,13 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-  ) {}
+  ) {
+    let token = localStorage.getItem('token');
+    console.log(token)
+    if(token === null){
+      this.router.navigate(['/unauthorized']);
+    }
+  }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user') || "{}");
