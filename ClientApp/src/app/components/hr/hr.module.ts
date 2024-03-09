@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { NzModule } from '../../common/nz.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonCompsModule } from '../common-comps/common-comps.module';
 import { HrComponent } from './hr.component';
 import { HrTemplateComponent } from './hr-template/hr-template.component';
@@ -24,7 +25,9 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     CommonCompsModule,
-    NzModule
+    NzModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class HrModule { }
