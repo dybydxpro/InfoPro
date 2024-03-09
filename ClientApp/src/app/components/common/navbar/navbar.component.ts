@@ -13,7 +13,6 @@ export class NavbarComponent implements OnInit {
     private router: Router,
   ) {
     let token = localStorage.getItem('token');
-    console.log(token)
     if(token === null){
       this.router.navigate(['/unauthorized']);
     }

@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './../../../service/auth.service';
 import { UserService } from '../../../service/user.service';
+import { NotificationService } from './../../../common/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: UntypedFormBuilder,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class LoginComponent implements OnInit {
         );
       },
       (err: any) => {
+        this.notificationService.error('Loggin failed!');
         console.error(err);
       }
     );

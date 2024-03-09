@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzModule } from './common/nz.module';
+import { BaseChartDirective } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -13,6 +14,8 @@ import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { DashboardTileComponent } from './components/general/dashboard-tile/dashboard-tile.component';
 import { PageNotFoundComponent } from './components/common/page-not-found/page-not-found.component';
 import { UnauthorizedComponent } from './components/common/unauthorized/unauthorized.component';
+import { DashboardGraphsComponent } from './components/general/dashboard-graphs/dashboard-graphs.component';
+import { GraphSegComponent } from './components/general/dashboard-graphs/graph-seg/graph-seg.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -31,7 +34,9 @@ const routes: Routes = [
     NavbarComponent,
     DashboardTileComponent,
     PageNotFoundComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    DashboardGraphsComponent,
+    GraphSegComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NzModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BaseChartDirective
   ],
   providers: [
     provideClientHydration()
