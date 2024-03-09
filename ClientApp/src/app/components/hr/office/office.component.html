@@ -1,0 +1,72 @@
+<div>
+  <div class="flex justify-between">
+    <div class="flex">
+      <span
+        nz-icon
+        nzType="arrow-left"
+        nzTheme="outline"
+        class="text-2xl mt-1.5 mr-2"
+        (click)="goBack()"
+      ></span>
+      <p class="text-2xl">Office Optionals</p>
+    </div>
+    <div class="flex mt-1.5">
+      <button nz-button nzType="primary" (click)="isVisibleDepartment = true">Add Department</button>
+      <button nz-button nzType="primary" (click)="isVisibleDesignation = true">Add Designation</button>
+    </div>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisibleDepartment"
+  nzTitle="Create Department"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">
+      Close
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitDepartment()"
+      [nzLoading]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>
+
+<nz-modal
+  [(nzVisible)]="isVisibleDesignation"
+  nzTitle="Create Designation"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+    <p>Modal Content</p>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">
+        Close
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitDepartment()"
+      [nzLoading]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>

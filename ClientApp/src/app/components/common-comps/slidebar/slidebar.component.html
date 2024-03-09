@@ -1,0 +1,12 @@
+<div class="slidebar_bg">
+    <div *ngIf="module === 'hr'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/hr'), 'deactive': !isActivatedRoute('/hr')}" (click)="redirect('/hr')">
+            <span nz-icon nzType="team" nzTheme="outline"></span>
+            <p>Employees and Recruitments</p>
+        </div>
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/hr/office'), 'deactive': !isActivatedRoute('/hr/office')}" (click)="redirect('/hr/office')">
+            <span nz-icon nzType="bank" nzTheme="outline"></span>
+            <p>Office Optionals</p>
+        </div>
+    </div>
+</div>

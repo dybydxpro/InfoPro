@@ -1,0 +1,38 @@
+@import './../../../../styles/variables';
+
+.slidebar_bg{
+    background-color: $light-green;
+    height: 90vh;
+    margin: 0 0.5rem 0 0;
+    border-radius: 1rem;
+    padding: 0.25rem;
+    box-shadow: 0rem 0.25rem 1rem rgba($color: $dark-green, $alpha: 1);
+}
+
+.slidebar_button {
+    display: flex;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 16px;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    & > *:nth-child(1) {
+        margin: 0.2rem 0.5rem 0 0;
+    }
+
+    & > *:nth-child(2) {
+        margin: 0;
+    }
+}
+
+.active {
+    background-color: $dark-green;
+    color: white;
+}
+
+.deactive {
+    background-color: white;
+    color: $dark-green;
+}

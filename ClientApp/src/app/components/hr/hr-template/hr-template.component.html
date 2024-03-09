@@ -1,5 +1,18 @@
 <div class="commonBg">
     <app-navbar></app-navbar>
 
-    <router-outlet></router-outlet>
+    <div class="viewContainer">
+        <div nz-row [nzGutter]="0">
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <app-slidebar></app-slidebar>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="20">
+                <div class="segContainer">
+                    <div class="segScrollable">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
