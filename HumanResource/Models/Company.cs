@@ -4,7 +4,8 @@ namespace HumanResource.Models
 {
     public class Company
     {
-        [Key] public int Id { get; set; }
+        [Key] 
+        public int Id { get; set; }
         public string CompanyName { get; set; }
         public string AddressLine1 { get; set; }
         public string? AddressLine2 { get; set; }

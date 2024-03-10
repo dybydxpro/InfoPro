@@ -40,4 +40,8 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/']);
   }
+
+  navigateToHome(): void {
+    this.router.navigate(['/home']);
+  }
 }

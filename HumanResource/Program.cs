@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyPolicy",
         builder =>
         {
-            builder.WithOrigins("*")
+            builder.WithOrigins("http://localhost:5000")
                 .AllowAnyMethod().AllowAnyHeader();
         });
 });
@@ -87,7 +87,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Identity v1"));
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseCors("MyPolicy");
 

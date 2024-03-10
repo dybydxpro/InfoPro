@@ -1,14 +1,200 @@
 <div>
-    <div
-      class="btn-wrappers"
-      nz-flex
-      nzJustify="space-between"
-      nzAlign="flex-start"
-    >
-      <div class="flex">
-        <span nz-icon nzType="arrow-left" nzTheme="outline" class="text-2xl mt-1.5 mr-2" (click)="goBack()"></span>
-        <p class="text-2xl">Employees and Recruitments</p>
-      </div>
-      <div></div>
+  <div class="flex justify-between">
+    <div class="flex">
+      <span
+        nz-icon
+        nzType="arrow-left"
+        nzTheme="outline"
+        class="text-2xl mt-1.5 mr-2"
+        (click)="goBack()"
+      ></span>
+      <p class="text-2xl">Employees and Recruitments</p>
     </div>
+    <div class="flex mt-1.5">
+      <button type="button" nz-button (click)="isVisibleModal = true">
+        Add Employees
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: hidden;">
+    <nz-table #employeesTable [nzData]="employees">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th nzCustomFilter>Name
+            <nz-filter-trigger [(nzVisible)]="visibleNameSearch" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+              <span nz-icon nzType="search"></span>
+            </nz-filter-trigger>
+          </th>
+          <th nzCustomFilter>NIC</th>
+          <th nzCustomFilter>DOB</th>
+          <th nzCustomFilter>Designation</th>
+          <th nzCustomFilter>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of employeesTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data.firstName + " " + data.lastName }}</td>
+          <td>{{ data.nic }}</td>
+          <td>{{ data.dob }}</td>
+          <td>{{ data.designation.designationName }}</td>
+          <td>{{ data.department.departmentName }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-modal
+  [(nzVisible)]="isVisibleModal"
+  nzTitle="Create Employee"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="employeesForm" [nzLayout]="'vertical'">
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>First Name</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="firstName" placeholder="John"/>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Last Name</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="lastName" placeholder="Smith"/>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Gender</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-select nzShowSearch nzAllowClear formControlName="gender" nzPlaceHolder="Select a gender">
+                <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+                <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Date of Birth</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-date-picker formControlName="dob" style="width: 100%;"></nz-date-picker>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Address</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="address" placeholder="Main Street, Mexico."/>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>NIC</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="nic" placeholder="200045099058"/>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Designation</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-select nzShowSearch nzAllowClear formControlName="designationId" nzPlaceHolder="Select a designation">
+                <nz-option *ngFor="let des of designations" [nzLabel]="des.designationName" [nzValue]="des.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Department</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-select nzShowSearch nzAllowClear formControlName="departmentId" nzPlaceHolder="Select a department">
+                <nz-option *ngFor="let dep of departments" [nzLabel]="dep.departmentName" [nzValue]="dep.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">Close</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitEmployee()"
+      [nzLoading]="isLoading"
+      [disabled]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>

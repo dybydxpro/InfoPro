@@ -3,10 +3,14 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzModule } from './common/nz.module';
 import { BaseChartDirective } from 'ng2-charts';
 import { CommonCompsModule } from './components/common-comps/common-comps.module';
+import { provideNzI18n, en_US } from 'ng-zorro-antd/i18n';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -48,7 +52,8 @@ const routes: Routes = [
     CommonCompsModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideNzI18n(en_US)
   ],
   bootstrap: [AppComponent]
 })
