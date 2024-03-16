@@ -1,4 +1,5 @@
 using System.Text;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
@@ -50,6 +51,19 @@ builder.Services.AddRateLimiter(rateLimiterOptions =>
     {
         options.Window = TimeSpan.FromSeconds(10);
         options.PermitLimit = 5;
+    });
+});
+
+builder.Services.AddMassTransit(x =>
+{
+    x.SetKebabCaseEndpointNameFormatter();
+    x.UsingRabbitMq((context, configurator) => {
+        configurator.Host(new Uri($"amqp://{builder.Configuration["RabbitMQ.Host"]}:{builder.Configuration["RabbitMQ.Port"]}"!), h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ.Username"]);
+            h.Password(builder.Configuration["RabbitMQ.Password"]);
+        });
+        configurator.ConfigureEndpoints(context);
     });
 });
 
