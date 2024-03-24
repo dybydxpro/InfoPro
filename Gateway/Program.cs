@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyPolicy",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:5000")
+                    builder.WithOrigins("*")
                             .AllowAnyMethod().AllowAnyHeader();
                 });
 });
@@ -54,18 +54,18 @@ builder.Services.AddRateLimiter(rateLimiterOptions =>
     });
 });
 
-builder.Services.AddMassTransit(x =>
-{
-    x.SetKebabCaseEndpointNameFormatter();
-    x.UsingRabbitMq((context, configurator) => {
-        configurator.Host(new Uri($"amqp://{builder.Configuration["RabbitMQ.Host"]}:{builder.Configuration["RabbitMQ.Port"]}"!), h =>
-        {
-            h.Username(builder.Configuration["RabbitMQ.Username"]);
-            h.Password(builder.Configuration["RabbitMQ.Password"]);
-        });
-        configurator.ConfigureEndpoints(context);
-    });
-});
+//builder.Services.AddMassTransit(x =>
+//{
+//    x.SetKebabCaseEndpointNameFormatter();
+//    x.UsingRabbitMq((context, configurator) => {
+//        configurator.Host(new Uri($"amqp://{builder.Configuration["RabbitMQ.Host"]}:{builder.Configuration["RabbitMQ.Port"]}"!), h =>
+//        {
+//            h.Username(builder.Configuration["RabbitMQ.Username"]);
+//            h.Password(builder.Configuration["RabbitMQ.Password"]);
+//        });
+//        configurator.ConfigureEndpoints(context);
+//    });
+//});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -104,14 +104,13 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Gateway v1"));
 
 app.UseRateLimiter();
-app.MapReverseProxy();
-// app.UseOcelot().Wait();
-
+app.UseStaticFiles();
 app.UseCors("MyPolicy");
-
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
+app.MapReverseProxy();
 
 app.Run();
