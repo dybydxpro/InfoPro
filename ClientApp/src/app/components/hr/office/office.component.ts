@@ -47,7 +47,6 @@ export class OfficeComponent implements OnInit{
   getDepartments(): void {
     this.departmentService.getAllDepartments().subscribe(
       (res: any) => {
-        console.log(res);
         this.departments = res;
       }, (err: any) => {
         console.error(err);
@@ -58,7 +57,6 @@ export class OfficeComponent implements OnInit{
   getDesignations(): void {
     this.designationService.getAllDesignations().subscribe(
       (res: any) => {
-        console.log(res);
         this.designations = res;
       }, (err: any) => {
         console.error(err);

@@ -20,7 +20,6 @@ builder.Services.AddCors(options =>
 
 // Add services to Reverse Proxy.
 builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-// builder.Services.AddOcelot(builder.Configuration);
 
 builder.Services.AddAuthentication(options =>
     {
@@ -54,19 +53,6 @@ builder.Services.AddRateLimiter(rateLimiterOptions =>
     });
 });
 
-//builder.Services.AddMassTransit(x =>
-//{
-//    x.SetKebabCaseEndpointNameFormatter();
-//    x.UsingRabbitMq((context, configurator) => {
-//        configurator.Host(new Uri($"amqp://{builder.Configuration["RabbitMQ.Host"]}:{builder.Configuration["RabbitMQ.Port"]}"!), h =>
-//        {
-//            h.Username(builder.Configuration["RabbitMQ.Username"]);
-//            h.Password(builder.Configuration["RabbitMQ.Password"]);
-//        });
-//        configurator.ConfigureEndpoints(context);
-//    });
-//});
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -99,7 +85,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InfoPro Gateway v1"));
 
@@ -110,7 +95,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllers();
+// app.MapControllers();
 app.MapReverseProxy();
 
 app.Run();
