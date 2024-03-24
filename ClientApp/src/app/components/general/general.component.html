@@ -1,0 +1,21 @@
+<div class="commonBg">
+  <app-navbar></app-navbar>
+
+  <div class="viewContainer">
+    <div class="grid grid-cols-2">
+      <div class="general_dashboardContainer">
+        <app-dashboard-graphs></app-dashboard-graphs>
+      </div>
+
+      <div>
+        <div nz-row [nzGutter]="0">
+          <div nz-col class="gutter-row" [nzSpan]="12" *ngFor="let app of apps">
+            <div class="inner-box">
+              <app-dashboard-tile [data]="app"></app-dashboard-tile>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

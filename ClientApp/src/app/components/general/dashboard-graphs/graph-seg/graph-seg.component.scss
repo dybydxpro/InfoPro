@@ -1,0 +1,19 @@
+.seg_body {
+    background-color: white;
+    height: 40vh;
+    padding: 0.75rem;
+    margin: 1rem;
+    border-radius: 0.7rem;
+}
+
+.seg_header {
+    & > * {
+        margin: 0 !important;
+    }
+}
+
+.seg_graphContainer {
+    display: flex;
+    justify-content: center;
+    height: 32vh;
+}

@@ -34,7 +34,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/styles.scss",
@@ -66,7 +71,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/env.ts",
+                  "with": "src/environments/env.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -110,5 +121,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "1e5fd374-93b5-4557-80bd-5c210de156ed"
   }
 }

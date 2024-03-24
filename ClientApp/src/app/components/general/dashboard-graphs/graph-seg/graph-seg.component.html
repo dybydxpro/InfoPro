@@ -1,0 +1,16 @@
+<div class="seg_body">
+    <div class="seg_header">
+        <p class="text-slate-700 text-lg font-semibold">{{ graphData.title }}</p>
+        <p class="text-sky-600 text-2xl font-bold font-mono">{{ graphData.value.toLocaleString() }}</p>
+    </div>
+    <hr/>
+
+    <div class="seg_graphContainer" *ngIf="graphData.type === 'bar'">
+        <canvas #barChartCanvas id="barChartCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <div class="seg_graphContainer" *ngIf="graphData.type === 'line'">
+        <canvas #lineChartCanvas id="lineChartCanvas" width="400" height="400"></canvas>
+    </div>
+    
+</div>

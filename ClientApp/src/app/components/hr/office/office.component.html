@@ -1,0 +1,142 @@
+<div>
+  <div class="flex justify-between">
+    <div class="flex">
+      <span
+        nz-icon
+        nzType="arrow-left"
+        nzTheme="outline"
+        class="text-2xl mt-1.5 mr-2"
+        (click)="goBack()"
+      ></span>
+      <p class="text-2xl">Office Optionals</p>
+    </div>
+    <div class="flex mt-1.5">
+      <button type="button" nz-button (click)="isVisibleDepartment = true">
+        Add Department
+      </button>
+      <button type="button" nz-button (click)="isVisibleDesignation = true">
+        Add Designation
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: hidden;">
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-table #departmentsTable [nzData]="departments">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Department Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of departmentsTable.data; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ data.departmentName }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-table #designationsTable [nzData]="designations">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Designation Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of designationsTable.data; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ data.designationName }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisibleDepartment"
+  nzTitle="Create Department"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="departmentForm" [nzLayout]="'vertical'">
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Department Name</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input
+                nz-input
+                formControlName="departmentName"
+                placeholder="Department"
+              />
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">Close</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitDepartment()"
+      [nzLoading]="isLoading"
+      [disabled]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>
+
+<nz-modal
+  [(nzVisible)]="isVisibleDesignation"
+  nzTitle="Create Designation"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="designationForm" [nzLayout]="'vertical'">
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Designation Name</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input
+                nz-input
+                type="text"
+                formControlName="designationName"
+                placeholder="Designation"
+              />
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">Close</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitDesignation()"
+      [nzLoading]="isLoading"
+      [disabled]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>

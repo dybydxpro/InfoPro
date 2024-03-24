@@ -1,0 +1,12 @@
+<div class="dashboard_tile" (click)="redirect(data.route)">
+    <div class="flex grid-cols-2">
+        <div>
+            <p class="tile_text">
+                {{ data.title }}
+            </p>
+        </div>
+        <div>
+            <img class="tile_img" [src]="data.img" alt="">
+        </div>
+    </div>
+</div>

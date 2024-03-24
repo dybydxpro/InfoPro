@@ -1,0 +1,62 @@
+@import './../../../../styles/variables';
+
+.navbar{
+    padding: 0.5rem;
+    position: absolute;
+    width: 100vw;
+}
+
+.navbar_bg{
+    height: 3.5rem;
+    background-color: $dark-green;
+    border-radius: 1rem;
+    box-shadow: 0rem 0.25rem 1rem rgba($color: $dark-green, $alpha: 1);
+}
+
+.navbar_iconBg{
+    height: 2.9rem;
+    background-color: rgba($color: #d9d9d9, $alpha: 0.8);
+    margin: 0.3rem;
+    border-radius: 0.8rem;
+}
+
+.navbar_rightSeg{
+    margin: 0.3rem;
+}
+
+.navbar_icon{
+    height: 2.9rem;
+    width: auto;
+}
+
+.navbar_ico{
+    color: #fff;
+    font-size: 28px;
+    padding: 0.6rem;
+}
+
+.navbar_popup {
+    border-radius: 0.8rem;
+    background-color: transparent;
+
+    & > div {
+        background-color: #fff;
+    }
+}
+
+::ng-deep .ant-avatar {
+    height: 2.9rem !important;
+    width: 2.9rem !important;
+    background-color: rgba($color: #d9d9d9, $alpha: 0.8) !important;
+    font-size: 20px !important;
+    font-weight: 600;
+    padding-top: 6px;
+}
+
+::ng-deep .ant-badge .ant-scroll-number-custom-component, .ant-badge-count, .ant-badge-dot {
+    transform: translate(0%, 0%) !important;
+}
+
+::ng-deep .ant-popover-inner-conten {
+    background-color: transparent;
+}
