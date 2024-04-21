@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Planning.Models.IEntity;
+using Planning.Models.Entity;
 
 namespace Planning.Data;
 

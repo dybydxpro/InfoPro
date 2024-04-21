@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDbContext<PlanningDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
 
-// builder.Services.AddTransient<IHumanResourceUnitOfWork, HumanResourceUnitOfWork>();
+builder.Services.AddTransient<IPlanningUnitOfWork, PlanningUnitOfWork>();
 // builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 // builder.Services.AddTransient<IDepartmentService, DepartmentService>();
 // builder.Services.AddTransient<IDesignationService, DesignationService>();

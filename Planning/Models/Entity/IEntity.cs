@@ -1,4 +1,4 @@
-﻿namespace Planning.Models.IEntity;
+﻿namespace Planning.Models.Entity;
 
 public interface IEntity
 {

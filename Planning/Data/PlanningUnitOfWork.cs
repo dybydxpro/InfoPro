@@ -13,7 +13,7 @@ public class PlanningUnitOfWork : IPlanningUnitOfWork
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly string userIdentifier;
 
-        // private IBaseRepository<Department> departmentRepository;
+        private IBaseRepository<PlanStruct> planStructRepository;
         
         public PlanningUnitOfWork(PlanningDbContext dbContext, ILogger<PlanningDbContext> logger, IHttpContextAccessor contextAccessor)
         {
@@ -35,13 +35,13 @@ public class PlanningUnitOfWork : IPlanningUnitOfWork
             catch (Exception ex) { }
         }
 
-        // public IBaseRepository<Department> DepartmentRepository
-        // {
-        //     get
-        //     {
-        //         return departmentRepository ??= new BaseRepository<Department>(dbContext, logger, companyId, userId);
-        //     }
-        // }
+        public IBaseRepository<PlanStruct> PlanStructRepository
+        {
+            get
+            {
+                return planStructRepository ??= new BaseRepository<PlanStruct>(dbContext, logger, companyId, userId);
+            }
+        }
 
         public User GetCurrentUser()
         {

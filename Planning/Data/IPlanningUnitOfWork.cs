@@ -4,7 +4,7 @@ namespace Planning.Data;
 
 public interface IPlanningUnitOfWork
 {
-    // IBaseRepository<Department> DepartmentRepository { get; }
+    IBaseRepository<PlanStruct> PlanStructRepository { get; }
     
     User GetCurrentUser();
     Company GetCurrentCompany();
