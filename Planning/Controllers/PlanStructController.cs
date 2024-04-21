@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Planning.Models;
 using Planning.Services.Context;
@@ -6,6 +7,7 @@ namespace Planning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlanStructController : ControllerBase
     {
         protected readonly IPlanStructService _planStructService;

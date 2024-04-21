@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Planning.Data;
+using Planning.Services;
+using Planning.Services.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<PlanningDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
 
 builder.Services.AddTransient<IPlanningUnitOfWork, PlanningUnitOfWork>();
-// builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddTransient<IPlanStructService, PlanStructService>();
 // builder.Services.AddTransient<IDepartmentService, DepartmentService>();
 // builder.Services.AddTransient<IDesignationService, DesignationService>();
 
