@@ -9,4 +9,14 @@
             <p>Office Optionals</p>
         </div>
     </div>
+    <div *ngIf="module === 'planning'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/planning'), 'deactive': !isActivatedRoute('/planning')}" (click)="redirect('/planning')">
+            <span nz-icon nzType="profile" nzTheme="outline"></span>
+            <p>Plan Structures</p>
+        </div>
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/planning/generate'), 'deactive': !isActivatedRoute('/planning/generate')}" (click)="redirect('/planning/generate')">
+            <span nz-icon nzType="reload" nzTheme="outline"></span>
+            <p>Generate Plans</p>
+        </div>
+    </div>
 </div>

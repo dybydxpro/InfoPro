@@ -26,6 +26,7 @@ const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "home", component: GeneralComponent},
   {path: "hr", loadChildren: () => import('./components/hr/hr.module').then((m) => m.HrModule) },
+  {path: "planning", loadChildren: () => import('./components/planning/planning.module').then((m) => m.PlanningModule) },
   {path: "unauthorized", component: UnauthorizedComponent},
   {path: "**", component: PageNotFoundComponent},
 ];

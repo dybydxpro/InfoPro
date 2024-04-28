@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Planning.Models;
 using Planning.Services.Context;
 
 namespace Planning.Controllers
@@ -14,6 +15,13 @@ namespace Planning.Controllers
         public FileGenController(IFileGenService fileGenService)
         {
             _fileGenService = fileGenService;
+        }
+
+        [HttpPost]
+        [Route("planGen")]
+        public async Task<ActionResult> HandleSpredsheets([FromForm]PreProcess preProcess)
+        {
+            return await _fileGenService.HandleSpredsheets(preProcess);
         }
     }
 }

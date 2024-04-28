@@ -1,0 +1,104 @@
+<div>
+  <div class="flex justify-between">
+    <div class="flex">
+      <span
+        nz-icon
+        nzType="arrow-left"
+        nzTheme="outline"
+        class="text-2xl mt-1.5 mr-2"
+        (click)="goBack()"
+      ></span>
+      <p class="text-2xl">Plan Structures</p>
+    </div>
+    <div class="flex mt-1.5">
+      <button type="button" nz-button (click)="isVisibleModal = true">
+        Add Plan Structure
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: hidden">
+    <nz-table #planningsTable [nzData]="plannings">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th nzCustomFilter>Description</th>
+          <th nzCustomFilter>Work Day Count</th>
+          <th nzCustomFilter>Created Date</th>
+          <th nzCustomFilter>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of planningsTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.dayCount }}</td>
+          <td>{{ data.createdOn }}</td>
+          <td>
+            <button nz-button nzType="default" nzShape="circle" (click)="editPS(data.id)">
+              <span nz-icon nzType="edit" nzTheme="outline"></span>
+            </button> &nbsp;
+            <button nz-button nzType="default" nzShape="circle" (click)="showConfirm(data.id)">
+              <span nz-icon nzType="delete" nzTheme="outline"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisibleModal"
+  [nzTitle]="isEdit ? 'Edit Plan Structure' : 'Create Plan Structure'"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="planningForm" [nzLayout]="'vertical'">
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Description</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="name" placeholder="" />
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Work Day Count</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-input-number
+                formControlName="days"
+                [nzStep]="1"
+                style="width: 100%"
+              ></nz-input-number>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">Close</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitPlanStruct()"
+      [nzLoading]="isLoading"
+      [disabled]="isLoading"
+    >
+      {{ isEdit ? "Update" : "Submit" }}
+    </button>
+  </div>
+</nz-modal>
