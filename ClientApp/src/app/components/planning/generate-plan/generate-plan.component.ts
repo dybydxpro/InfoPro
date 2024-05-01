@@ -68,10 +68,35 @@ export class GeneratePlanComponent implements OnInit {
     this.fileGenService.handleSpredsheets(formData).subscribe(
       (res: any) => {
         console.log(res);
-      }, (err: any) => {
-        this.notificationService.uploadingFileError("File upload failed!");
+        this.downloadFile(res.file);
+      },
+      (err: any) => {
+        this.notificationService.uploadingFileError('File upload failed!');
         console.error(err);
       }
     );
+  }
+
+  downloadFile(file: any): void {
+    const byteCharacters = atob(file.fileContents);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], {
+      type: `.xlsx`,
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    a.href = url;
+    a.download = file.fileDownloadName;
+    a.click();
+
+    window.URL.revokeObjectURL(url);
   }
 }

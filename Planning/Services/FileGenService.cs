@@ -24,7 +24,8 @@ public class FileGenService : IFileGenService
 
         data = SetValuesToList(preProcess);
 
-        foreach (int temp in preProcess.Templates) {
+        foreach (int temp in preProcess.Templates)
+        {
             PlanStruct planStruct = _unitOfWork.PlanStructRepository.GetAll().Where(p => p.Id == temp).FirstOrDefault();
 
             var vals = PrepareValues(data, planStruct.DayCount);
@@ -89,29 +90,29 @@ public class FileGenService : IFileGenService
         sheet["C1"].StringValue = "Quantity";
         sheet["D1"].StringValue = "StartDate";
 
-        for (int i = 2; i < plan.Count(); i++)
+        for (int i = 0; i < givenPlan.Count(); i++)
         {
-            sheet[$"A{i}"].StringValue = Convert.ToString(givenPlan[i - 2].Id);
-            sheet[$"B{i}"].StringValue = Convert.ToString(givenPlan[i - 2].PO);
-            sheet[$"C{i}"].StringValue = Convert.ToString(givenPlan[i - 2].Quantity);
-            sheet[$"D{i}"].StringValue = Convert.ToString(givenPlan[i - 2].StartDate);
+            sheet[$"A{i + 2}"].StringValue = Convert.ToString(givenPlan[i].Id);
+            sheet[$"B{i + 2}"].StringValue = Convert.ToString(givenPlan[i].PO);
+            sheet[$"C{i + 2}"].StringValue = Convert.ToString(givenPlan[i].Quantity);
+            sheet[$"D{i + 2}"].StringValue = Convert.ToString(givenPlan[i].StartDate);
         }
 
         for (int i = 0; i < plan.Count(); i++)
         {
             var worksheet = workbook.CreateWorkSheet($"Sheet{2 + i}");
 
-            sheet["A1"].StringValue = "#";
-            sheet["B1"].StringValue = "PO";
-            sheet["C1"].StringValue = "Quantity";
-            sheet["D1"].StringValue = "StartDate";
+            worksheet["A1"].StringValue = "#";
+            worksheet["B1"].StringValue = "PO";
+            worksheet["C1"].StringValue = "Quantity";
+            worksheet["D1"].StringValue = "StartDate";
 
-            for (int j = 2; j < plan.Count(); j++)
+            for (int j = 0; j < plan[i].Count(); j++)
             {
-                sheet[$"A{j}"].StringValue = Convert.ToString(givenPlan[j - 2].Id);
-                sheet[$"B{j}"].StringValue = Convert.ToString(givenPlan[j - 2].PO);
-                sheet[$"C{j}"].StringValue = Convert.ToString(givenPlan[j - 2].Quantity);
-                sheet[$"D{j}"].StringValue = Convert.ToString(givenPlan[j - 2].StartDate);
+                worksheet[$"A{j + 2}"].StringValue = Convert.ToString(plan[i][j].Id);
+                worksheet[$"B{j + 2}"].StringValue = Convert.ToString(plan[i][j].PO);
+                worksheet[$"C{j + 2}"].StringValue = Convert.ToString(plan[i][j].Quantity);
+                worksheet[$"D{j + 2}"].StringValue = Convert.ToString(plan[i][j].StartDate);
             }
         }
 
@@ -120,7 +121,7 @@ public class FileGenService : IFileGenService
         MemoryStream stream = new MemoryStream();
         stream = workbook.ToStream();
         byte[] excelFiles = stream.ToArray();
-        
+
         return new FileContentResult(excelFiles, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         {
             FileDownloadName = fileName
@@ -170,7 +171,7 @@ public class FileGenService : IFileGenService
 
     private DateOnly ConvertStringToDateOnly(string dateString)
     {
-        string dateFormat = "dd/MM/yyyy"; 
+        string dateFormat = "dd/MM/yyyy";
 
         if (DateOnly.TryParseExact(dateString, dateFormat, null, System.Globalization.DateTimeStyles.None, out DateOnly result))
         {
