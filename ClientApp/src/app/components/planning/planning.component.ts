@@ -106,7 +106,6 @@ export class PlanningComponent implements OnInit {
   editPS(id: number): void {
     this.isEdit = true;
     this.planning = this.selectPlan(id);
-    console.log(this.planning);
     this.planningForm.get('name')?.setValue(this.planning[0].name);
     this.planningForm.get('days')?.setValue(this.planning[0].dayCount);
     this.isVisibleModal = true;

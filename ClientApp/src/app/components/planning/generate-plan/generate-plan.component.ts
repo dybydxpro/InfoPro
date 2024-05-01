@@ -50,12 +50,11 @@ export class GeneratePlanComponent implements OnInit {
   beforeUpload = (file: any) => {
     const fileList: File[] = [];
     this.fileLists = fileList.concat(file);
-    console.log(this.fileLists);
     return false;
   };
 
   handleUpload(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
   uploadToGen(): void {
