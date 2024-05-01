@@ -1,5 +1,9 @@
 using System.Text;
+using Industrial_Engineering.Data;
+using Industrial_Engineering.Services;
+using Industrial_Engineering.Services.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -16,12 +20,12 @@ builder.Services.AddCors(options =>
         });
 });
 
-//builder.Services.AddDbContext<HumanResourceDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
+builder.Services.AddDbContext<IndustrialEngineeringDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
 
-//builder.Services.AddTransient<IHumanResourceUnitOfWork, HumanResourceUnitOfWork>();
-//builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddTransient<IIndustrialEngineeringUnitOfWork, IndustrialEngineeringUnitOfWork>();
+builder.Services.AddTransient<IProductionFloorService, ProductionFloorService>();
 //builder.Services.AddTransient<IDepartmentService, DepartmentService>();
-//builder.Services.AddTransient<IDesignationService, DesignationService>();
+
 
 builder.Services.AddAuthentication(options =>
 {

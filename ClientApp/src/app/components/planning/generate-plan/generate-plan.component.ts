@@ -67,7 +67,6 @@ export class GeneratePlanComponent implements OnInit {
 
     this.fileGenService.handleSpredsheets(formData).subscribe(
       (res: any) => {
-        console.log(res);
         this.downloadFile(res.file);
       },
       (err: any) => {

@@ -19,4 +19,14 @@
             <p>Generate Plans</p>
         </div>
     </div>
+    <div *ngIf="module === 'ie'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/ie'), 'deactive': !isActivatedRoute('/ie')}" (click)="redirect('/ie')">
+            <span nz-icon nzType="insert-row-below" nzTheme="outline"></span>
+            <p>Production Floors</p>
+        </div>
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/ie'), 'deactive': !isActivatedRoute('/ie')}" (click)="redirect('/ie')">
+            <span nz-icon nzType="property-safety" nzTheme="outline"></span>
+            <p>Styles</p>
+        </div>
+    </div>
 </div>

@@ -34,8 +34,4 @@
 		<PackageReference Include="Yarp.Telemetry.Consumption" Version="2.1.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ML\" />
-	</ItemGroup>
-
 </Project>
