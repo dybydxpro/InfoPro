@@ -49,7 +49,7 @@ export class HrComponent implements OnInit {
       gender: [null, [Validators.required]],
       dob: [null, [Validators.required]],
       address: [null, [Validators.required]],
-      nic: [null, [Validators.required, Validators.max(12)]],
+      nic: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(12)]],
       designationId: [null, [Validators.required]],
       departmentId: [null, [Validators.required]]
     });
@@ -102,6 +102,16 @@ export class HrComponent implements OnInit {
 
   handleClose(): void {
     this.isVisibleModal = false;
+    this.employeesForm = this.fb.group({
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
+      gender: [null, [Validators.required]],
+      dob: [null, [Validators.required]],
+      address: [null, [Validators.required]],
+      nic: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(12)]],
+      designationId: [null, [Validators.required]],
+      departmentId: [null, [Validators.required]]
+    });
   }
 
   submitEmployee(): void {
@@ -109,12 +119,15 @@ export class HrComponent implements OnInit {
       'firstName': this.employeesForm.get('firstName')?.value,
       'lastName': this.employeesForm.get('lastName')?.value,
       'gender': this.employeesForm.get('gender')?.value,
-      'dob': this.employeesForm.get('dob')?.value,
+      'dob': new Date(this.employeesForm.get('dob')?.value).toISOString().split('T')[0],
       'address': this.employeesForm.get('address')?.value,
       'nic': this.employeesForm.get('nic')?.value,
       'designationId': this.employeesForm.get('designationId')?.value,
       'departmentId' : this.employeesForm.get('departmentId')?.value,
     };
+
+    console.log(new Date(this.employeesForm.get('dob')?.value).toISOString().split('T')[0]);
+    console.log(data);
 
     if(this.employeesForm.valid){
       this.employeeService.postEmployee(data).subscribe(
