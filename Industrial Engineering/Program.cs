@@ -24,7 +24,7 @@ builder.Services.AddDbContext<IndustrialEngineeringDbContext>(options => options
 
 builder.Services.AddTransient<IIndustrialEngineeringUnitOfWork, IndustrialEngineeringUnitOfWork>();
 builder.Services.AddTransient<IProductionFloorService, ProductionFloorService>();
-//builder.Services.AddTransient<IDepartmentService, DepartmentService>();
+builder.Services.AddTransient<IStyleService, StyleService>();
 
 
 builder.Services.AddAuthentication(options =>

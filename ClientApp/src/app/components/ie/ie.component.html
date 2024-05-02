@@ -1,1 +1,159 @@
-<p>ie works!</p>
+<div>
+  <div class="flex justify-between">
+    <div class="flex">
+      <span
+        nz-icon
+        nzType="arrow-left"
+        nzTheme="outline"
+        class="text-2xl mt-1.5 mr-2"
+        (click)="goBack()"
+      ></span>
+      <p class="text-2xl">Production Floor</p>
+    </div>
+    <div class="flex mt-1.5">
+      <button type="button" nz-button (click)="isVisibleModal = true">
+        Add Floor
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: hidden">
+    <nz-table #productionFloorTable [nzData]="productionFloor">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th nzCustomFilter>Name</th>
+          <th nzCustomFilter>Working Hours</th>
+          <th nzCustomFilter>Style</th>
+          <th nzCustomFilter>Flow Workers</th>
+          <th nzCustomFilter>SMV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of productionFloorTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data.firstName + " " + data.lastName }}</td>
+          <td>{{ data.nic }}</td>
+          <td>{{ data.dob }}</td>
+          <td>{{ data.designation.designationName }}</td>
+          <td>{{ data.department.departmentName }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisibleModal"
+  nzTitle="Create Flow"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="ieForm" [nzLayout]="'vertical'">
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Name</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="name" placeholder="" />
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Working Hours</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-input-number
+                style="width: 100%"
+                formControlName="workingHours"
+                [nzMin]="0"
+                [nzStep]="0.25"
+              ></nz-input-number>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Style</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                formControlName="styleId"
+                nzPlaceHolder=""
+              >
+                <nz-option
+                  *ngFor="let sty of styles"
+                  [nzLabel]="sty.name"
+                  [nzValue]="sty.id"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Workers</nz-form-label>
+          </div>
+        </div>
+        <div
+          formArrayName="workers"
+          *ngFor="let item of workers.controls as FormArray; let i = index"
+        >
+          <div nz-row>
+            <div nz-col [nzSpan]="24" [formGroupName]="i">
+              <nz-form-control nzErrorTip="Required">
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  formControlName="value"
+                  nzPlaceHolder=""
+                >
+                  <nz-option
+                    *ngFor="let sty of styles"
+                    [nzLabel]="sty.name"
+                    [nzValue]="sty.id"
+                  ></nz-option>
+                </nz-select> 
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-form-item>
+    </form>
+
+    <button nz-button nzType="primary" nzShape="circle" (click)="addItem()">
+      <span nz-icon nzType="plus" nzTheme="outline"></span>
+    </button>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">Close</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitEmployee()"
+      [nzLoading]="isLoading"
+      [disabled]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>

@@ -6,17 +6,20 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonCompsModule } from '../common-comps/common-comps.module';
 import { IeComponent } from './ie.component';
 import { IeTemplateComponent } from './ie-template/ie-template.component';
+import { StylesComponent } from './styles/styles.component';
 
 const routes: Routes = [
   {path: "", component: IeTemplateComponent, children: [
     {path: "", component: IeComponent},
+    {path: "styles", component: StylesComponent},
   ]}
 ];
 
 @NgModule({
   declarations: [
     IeComponent,
-    IeTemplateComponent
+    IeTemplateComponent,
+    StylesComponent
   ],
   imports: [
     CommonModule,

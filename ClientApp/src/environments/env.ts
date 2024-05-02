@@ -3,4 +3,6 @@ export const env = {
     authUrl: "api/gateway/authenticate",
     hrUrl: "api/gateway/humenresource",
     planningUrl: "api/gateway/planning",
+    ieUrl: "api/gateway/ie",
+    prodUrl: "api/gateway/production",
 };

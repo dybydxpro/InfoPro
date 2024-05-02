@@ -1,7 +1,7 @@
-﻿using Industrial_Engineering.Modals.Entity;
+﻿using Identity.Modals.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace Industrial_Engineering.Modals
+namespace Identity.Modals
 {
     public class Employee : IEntity
     {

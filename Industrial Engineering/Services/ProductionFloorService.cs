@@ -1,6 +1,7 @@
 ﻿using Industrial_Engineering.Data;
 using Industrial_Engineering.Modals;
 using Industrial_Engineering.Services.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Industrial_Engineering.Services
 {
@@ -17,13 +18,13 @@ namespace Industrial_Engineering.Services
 
         public List<ProductionFloor> GetProductionFloors()
         {
-            List<ProductionFloor> productionFloors = _unitOfWork.ProductionFloorRepository.GetAll().ToList();
+            List<ProductionFloor> productionFloors = _unitOfWork.ProductionFloorRepository.GetAll().Include(p => p.Style).Include(p => p.FlowWorkers).ToList();
             return productionFloors;
         }
 
         public ProductionFloor GetProductionFloorById(int id)
         {
-            ProductionFloor productionFloor = _unitOfWork.ProductionFloorRepository.GetAll().Where(d => d.Id == id).FirstOrDefault();
+            ProductionFloor productionFloor = _unitOfWork.ProductionFloorRepository.GetAll().Include(p => p.Style).Include(p => p.FlowWorkers).Where(d => d.Id == id).FirstOrDefault();
             return productionFloor;
         }
 
@@ -32,6 +33,15 @@ namespace Industrial_Engineering.Services
             _unitOfWork.ProductionFloorRepository.Insert(productionFloor);
             _unitOfWork.SaveChanges();
             _unitOfWork.ProductionFloorRepository.Reload(productionFloor);
+
+            foreach(var worker in productionFloor.FlowWorkers)
+            {
+                worker.ProductionFloorId = productionFloor.Id;
+                _unitOfWork.FlowWorkerRepository.Insert(worker);
+                _unitOfWork.SaveChanges();
+                _unitOfWork.FlowWorkerRepository.Reload(worker);
+            }
+
             return productionFloor;
         }
 
