@@ -2,7 +2,11 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.ML;
 using Microsoft.OpenApi.Models;
+using Production.Data;
+using Production.Services.Context;
+using Production.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +20,11 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod().AllowAnyHeader();
         });
 });
+builder.Services.AddPredictionEnginePool<Forecast_Predict.ModelInput, Forecast_Predict.ModelOutput>().FromFile("ML/Forecast Predict.mlnet");
+builder.Services.AddDbContext<ProductionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
 
-//builder.Services.AddDbContext<HumanResourceDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
-
-//builder.Services.AddTransient<IHumanResourceUnitOfWork, HumanResourceUnitOfWork>();
-//builder.Services.AddTransient<IEmployeeService, EmployeeService>();
-//builder.Services.AddTransient<IDepartmentService, DepartmentService>();
-//builder.Services.AddTransient<IDesignationService, DesignationService>();
+builder.Services.AddTransient<IProductionUnitOfWork, ProductionUnitOfWork>();
+builder.Services.AddTransient<IForecastService, ForecastService>();
 
 builder.Services.AddAuthentication(options =>
 {

@@ -1,6 +1,5 @@
 ﻿using Industrial_Engineering.Modals;
 using Industrial_Engineering.Services.Context;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Industrial_Engineering.Controllers
@@ -23,7 +22,7 @@ namespace Industrial_Engineering.Controllers
         }
 
         [HttpGet]
-        [Route("getById/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult<Style>> GetStyleById(int id)
         {
             return _styleService.GetStyleById(id);

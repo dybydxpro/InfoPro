@@ -2,13 +2,10 @@
 
 using Microsoft.ML.Data;
 using Microsoft.ML;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Plotly.NET;
 using Plotly.NET.LayoutObjects;
 
-namespace Forecast
+namespace Production.ML
 {
     public partial class Forecast_Predict
     {

@@ -1,0 +1,7 @@
+<div class="flex justify-center mx-8 mt-32">
+    <button nz-button nzType="primary" [nzLoading]="isLoading" [disabled]="isLoading" (click)="handleForecast()">Generate Forecast</button>
+</div>
+
+<div class="flex justify-center mx-8 my-4">
+    <p class="text-2xl">Today Factory Forecast is: <span class="text-teal-950">{{ forecast }}</span></p>
+</div>

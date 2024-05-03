@@ -29,4 +29,10 @@
             <p>Styles</p>
         </div>
     </div>
+    <div *ngIf="module === 'production'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/production'), 'deactive': !isActivatedRoute('/production')}" (click)="redirect('/production')">
+            <span nz-icon nzType="area-chart" nzTheme="outline"></span>
+            <p>Forecast Generate</p>
+        </div>
+    </div>
 </div>

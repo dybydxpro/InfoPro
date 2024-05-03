@@ -100,7 +100,7 @@
               >
                 <nz-option
                   *ngFor="let sty of styles"
-                  [nzLabel]="sty.name"
+                  [nzLabel]="sty.code"
                   [nzValue]="sty.id"
                 ></nz-option>
               </nz-select>
@@ -108,41 +108,29 @@
           </div>
         </div>
       </nz-form-item>
-      <nz-form-item>
-        <div nz-row>
-          <div nz-col>
-            <nz-form-label nzRequired>Workers</nz-form-label>
-          </div>
-        </div>
-        <div
-          formArrayName="workers"
-          *ngFor="let item of workers.controls as FormArray; let i = index"
-        >
-          <div nz-row>
-            <div nz-col [nzSpan]="24" [formGroupName]="i">
-              <nz-form-control nzErrorTip="Required">
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  formControlName="value"
-                  nzPlaceHolder=""
-                >
-                  <nz-option
-                    *ngFor="let sty of styles"
-                    [nzLabel]="sty.name"
-                    [nzValue]="sty.id"
-                  ></nz-option>
-                </nz-select> 
-              </nz-form-control>
-            </div>
-          </div>
-        </div>
-      </nz-form-item>
     </form>
-
-    <button nz-button nzType="primary" nzShape="circle" (click)="addItem()">
-      <span nz-icon nzType="plus" nzTheme="outline"></span>
-    </button>
+    <div nz-row>
+      <div nz-col>
+        <nz-form-label nzRequired>Workers</nz-form-label>
+      </div>
+    </div>
+    <nz-select
+      [nzMaxTagCount]="100"
+      [nzMaxTagPlaceholder]="tagPlaceHolder"
+      nzMode="multiple"
+      nzPlaceHolder="Please select"
+      [(ngModel)]="selectedEmployees"
+      style="width: 100%"
+    >
+      <nz-option
+        *ngFor="let item of employees"
+        [nzLabel]="item.name"
+        [nzValue]="item.id"
+      ></nz-option>
+    </nz-select>
+    <ng-template #tagPlaceHolder let-selectedList
+      >and {{ selectedList.length }} more selected</ng-template
+    >
   </div>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleClose()">Close</button>

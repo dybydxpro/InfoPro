@@ -28,6 +28,7 @@ const routes: Routes = [
   {path: "hr", loadChildren: () => import('./components/hr/hr.module').then((m) => m.HrModule)},
   {path: "planning", loadChildren: () => import('./components/planning/planning.module').then((m) => m.PlanningModule)},
   {path: "ie", loadChildren: () => import('./components/ie/ie.module').then((m) => m.IeModule)},
+  {path: "production", loadChildren: () => import('./components/production/production.module').then((m) => m.ProductionModule)},
   {path: "unauthorized", component: UnauthorizedComponent},
   {path: "**", component: PageNotFoundComponent},
 ];

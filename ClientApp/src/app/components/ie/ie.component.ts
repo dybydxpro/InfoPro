@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { IeService } from './../../service/ie/ie.service';
 import { StylesService } from './../../service/ie/styles.service';
 import { EmployeeService } from '../../service/hr/employee.service';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ie',
@@ -14,8 +14,9 @@ export class IeComponent implements OnInit {
   productionFloor: any[] = [];
   styles: any[] = [];
   employees: any[] = [];
+  selectedEmployees: number[] = [];
   isVisibleModal: boolean = false;
-  ieForm: FormGroup;
+  ieForm: UntypedFormGroup;
   isLoading: boolean = false;
 
   constructor(
@@ -23,7 +24,7 @@ export class IeComponent implements OnInit {
     private ieService: IeService,
     private stylesService: StylesService,
     private employeeService: EmployeeService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +35,11 @@ export class IeComponent implements OnInit {
       name: [null, [Validators.required]],
       workingHours: [null, [Validators.min(0)]],
       styleId: [null, [Validators.required]],
-      workers: this.fb.array([]),
+      workers: this.fb.array([
+        this.fb.group({
+          value: [null, [Validators.required]],
+        })
+      ]),
     });
   }
 
@@ -83,11 +88,38 @@ export class IeComponent implements OnInit {
     }));
   }
 
+  workers() : FormArray {
+    return this.ieForm.get("workers") as FormArray
+  }
+
   handleClose(): void {
     this.isVisibleModal = false;
   }
 
   submitEmployee(): void {
+    let workers: any[] = [];
+    this.selectedEmployees.forEach((emp: number) => {
+      workers.push({
+        "employeeId": emp,
+        "smv": 9999
+      });
+    });
 
+    let data: any = {
+      "name": this.ieForm.get('name')?.value,
+      "workingHours": this.ieForm.get('workingHours')?.value,
+      "styleId": this.ieForm.get('styleId')?.value,
+      "flowWorkers": workers
+    }
+
+    this.ieService.postProductionFloor(data).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.getProductionFloors();
+        this.isVisibleModal = false;
+      }, (err: any) => {
+        console.error(err);
+      }
+    );
   }
 }
