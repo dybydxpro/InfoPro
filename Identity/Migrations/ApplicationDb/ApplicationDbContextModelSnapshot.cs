@@ -17,7 +17,7 @@ namespace Identity.Migrations.ApplicationDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -88,10 +88,10 @@ namespace Identity.Migrations.ApplicationDb
                             CompanyContact = "0779200039",
                             CompanyEmail = "tharindutd1998@gmail.com",
                             CompanyName = "InfoPro",
-                            CreatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            CreatedOn = new DateTime(2024, 5, 1, 23, 5, 39, 968, DateTimeKind.Local).AddTicks(1518),
                             IsDeleted = false,
                             PostalCode = "81000",
-                            UpdatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            UpdatedOn = new DateTime(2024, 5, 1, 23, 5, 39, 968, DateTimeKind.Local).AddTicks(1518),
                             Website = "infopro.com"
                         });
                 });
@@ -232,6 +232,166 @@ namespace Identity.Migrations.ApplicationDb
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("Identity.Modals.FlowWorker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductionFloorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ProductionFloorId");
+
+                    b.ToTable("FlowWorkers");
+                });
+
+            modelBuilder.Entity("Identity.Modals.PlanStruct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DayCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlanStructs");
+                });
+
+            modelBuilder.Entity("Identity.Modals.ProductionFloor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StyleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("WorkingHours")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StyleId");
+
+                    b.ToTable("ProductionFloors");
+                });
+
+            modelBuilder.Entity("Identity.Modals.Style", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("SMV")
+                        .HasColumnType("float");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Styles");
+                });
+
             modelBuilder.Entity("Identity.Modals.User", b =>
                 {
                     b.Property<int>("Id")
@@ -285,13 +445,13 @@ namespace Identity.Migrations.ApplicationDb
                             Id = 1,
                             AuthId = 1,
                             CompanyId = 1,
-                            CreatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            CreatedOn = new DateTime(2024, 5, 1, 23, 5, 39, 968, DateTimeKind.Local).AddTicks(1518),
                             Email = "tharindutd1998@gmail.com",
                             FirstName = "InfoPro",
                             IsDeleted = false,
                             LastName = "Admin",
                             Phone = "0779200039",
-                            UpdatedOn = new DateTime(2024, 3, 2, 3, 23, 0, 4, DateTimeKind.Local).AddTicks(8391),
+                            UpdatedOn = new DateTime(2024, 5, 1, 23, 5, 39, 968, DateTimeKind.Local).AddTicks(1518),
                             UserIdentifier = "6872a1be-fe5e-4d2b-8ac1-26ce0c36f846"
                         });
                 });
@@ -323,6 +483,36 @@ namespace Identity.Migrations.ApplicationDb
                     b.Navigation("Designation");
                 });
 
+            modelBuilder.Entity("Identity.Modals.FlowWorker", b =>
+                {
+                    b.HasOne("Identity.Modals.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Identity.Modals.ProductionFloor", "ProductionFloor")
+                        .WithMany("FlowWorkers")
+                        .HasForeignKey("ProductionFloorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("ProductionFloor");
+                });
+
+            modelBuilder.Entity("Identity.Modals.ProductionFloor", b =>
+                {
+                    b.HasOne("Identity.Modals.Style", "Style")
+                        .WithMany()
+                        .HasForeignKey("StyleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Style");
+                });
+
             modelBuilder.Entity("Identity.Modals.User", b =>
                 {
                     b.HasOne("Identity.Modals.Company", "Company")
@@ -332,6 +522,11 @@ namespace Identity.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Identity.Modals.ProductionFloor", b =>
+                {
+                    b.Navigation("FlowWorkers");
                 });
 #pragma warning restore 612, 618
         }

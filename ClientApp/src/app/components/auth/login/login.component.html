@@ -16,7 +16,7 @@
                       <input type="password" id="password" formControlName="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm w-full py-2.5 px-5 rounded-full" placeholder="********" required>
                     </div>
                     <div class="mb-5 flex justify-between items-center">
-                        <div class="mb-2 text-sm font-medium text-gray-900 flex">Do you haven't an account? <a class="ml-2">Sign up</a></div>
+                        <div class="mb-2 text-sm font-medium text-gray-900 flex">Do you haven't an account? <a class="ml-2" (click)="toRegister()">Sign up</a></div>
                         <button type="button" (click)="submitLogin()" class="text-white btn-dark-green focus:ring-4 focus:outline-none font-medium text-sm sm:w-auto px-5 py-2.5 text-center rounded-full w-full">Sign in</button>
                     </div>
                 </form>

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Identity.Modals
 {
-    public class Employee: IEntity
+    public class Employee : IEntity
     {
         [Key]
         public int Id { get; set; }

@@ -6,7 +6,7 @@
     <div class="grid justify-center">
       <div class="auth_area" *ngIf="formNo == 0">
         <p class="header">Sign up to your account</p>
-        <form class="max-w-sm mx-auto">
+        <form class="max-w-sm mx-auto" [formGroup]="userForm">
           <div class="mb-5">
             <label
               for="text"
@@ -16,6 +16,7 @@
             <input
               type="text"
               id="firstName"
+              formControlName="firstName"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="John"
               required
@@ -30,6 +31,7 @@
             <input
               type="text"
               id="lastName"
+              formControlName="lastName"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="Smith"
               required
@@ -44,6 +46,7 @@
             <input
               type="email"
               id="email"
+              formControlName="email"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="john.smith@infopro.com"
               required
@@ -58,6 +61,7 @@
             <input
               type="password"
               id="password"
+              formControlName="password"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm w-full py-2.5 px-5 rounded-full"
               placeholder="********"
               required
@@ -65,12 +69,12 @@
           </div>
           <div class="mb-5 flex justify-between items-center">
             <div class="mb-2 text-sm font-medium text-gray-900 flex">
-              Do you have an account? <a class="ml-2">Sign up</a>
+              Do you have an account? <a class="ml-2" (click)="toLogin()">Login here</a>
             </div>
             <button
               type="button"
               class="text-white btn-dark-green focus:ring-4 focus:outline-none font-medium text-sm sm:w-auto px-5 py-2.5 text-center rounded-full w-full"
-              (click)="formNo = 1"
+              (click)="next()"
               >
               Next
             </button>
@@ -79,7 +83,7 @@
       </div>
       <div class="auth_area" *ngIf="formNo == 1">
         <p class="header">Register the company</p>
-        <form class="max-w-sm mx-auto">
+        <form class="max-w-sm mx-auto" [formGroup]="companyForm">
           <div class="mb-5">
             <label
               for="text"
@@ -89,6 +93,7 @@
             <input
               type="text"
               id="companyName"
+              formControlName="companyName"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="John's Holdings PLC"
               required
@@ -103,6 +108,7 @@
             <input
               type="text"
               id="addressLine1"
+              formControlName="addressLine1"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="No 16"
               required
@@ -117,6 +123,7 @@
             <input
               type="text"
               id="addressLine2"
+              formControlName="addressLine2"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="Main street"
             />
@@ -130,6 +137,7 @@
             <input
               type="text"
               id="city"
+              formControlName="city"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="Colombo"
             />
@@ -143,6 +151,7 @@
             <input
               type="text"
               id="postalCode"
+              formControlName="postalCode"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="Colombo"
             />
@@ -156,6 +165,7 @@
             <input
               type="email"
               id="email"
+              formControlName="compEmail"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="info@john-holdings.com"
               required
@@ -170,6 +180,7 @@
             <input
               type="text"
               id="telephone"
+              formControlName="telephone"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="+94112006985"
             />
@@ -183,6 +194,7 @@
             <input
               type="text"
               id="website"
+              formControlName="website"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full py-2.5 px-5 rounded-full"
               placeholder="john.com"
             />
@@ -198,7 +210,8 @@
             <button
               type="submit"
               class="text-white btn-dark-green focus:ring-4 focus:outline-none font-medium text-sm sm:w-auto px-5 py-2.5 text-center rounded-full w-full"
-            >
+              (click)="submitLogin()"
+              >
               Submit
             </button>
           </div>

@@ -1,0 +1,277 @@
+﻿{
+  "Scenario": "Regression",
+  "DataSource": {
+    "Version": 3,
+    "EscapeCharacter": "\"",
+    "ReadMultiLines": false,
+    "KeepDiacritics": false,
+    "KeepPunctuations": false,
+    "AllowQuoting": false,
+    "Type": "TabularFile",
+    "FilePath": "C:\\Evbex\\Test\\InfoPro_AIBuild\\InfoPro_AIBuild\\factory_data.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "smv",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "no_of_workers",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "quantity",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.77180157222821011,
+        "RuntimeInSeconds": 1.539,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2",
+          "e0": {
+            "OutputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 5,
+            "MinimumExampleCountPerLeaf": 6,
+            "NumberOfTrees": 236,
+            "MaximumBinCountPerFeature": 821,
+            "FeatureFraction": 0.9217444974069009,
+            "LearningRate": 0.19394893118718246,
+            "LabelColumnName": "quantity",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.771801554378614,
+        "RuntimeInSeconds": 1.39,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2",
+          "e0": {
+            "OutputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 5,
+            "MinimumExampleCountPerLeaf": 6,
+            "NumberOfTrees": 236,
+            "MaximumBinCountPerFeature": 821,
+            "FeatureFraction": 0.92178256135992631,
+            "LearningRate": 0.19394949067998529,
+            "LabelColumnName": "quantity",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.77174114683365769,
+        "RuntimeInSeconds": 1.43,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2",
+          "e0": {
+            "OutputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 5,
+            "MinimumExampleCountPerLeaf": 6,
+            "NumberOfTrees": 235,
+            "MaximumBinCountPerFeature": 820,
+            "FeatureFraction": 0.92066300227123365,
+            "LearningRate": 0.19391695216796767,
+            "LabelColumnName": "quantity",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.7715389764308872,
+        "RuntimeInSeconds": 1.514,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2",
+          "e0": {
+            "OutputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 5,
+            "MinimumExampleCountPerLeaf": 7,
+            "NumberOfTrees": 236,
+            "MaximumBinCountPerFeature": 806,
+            "FeatureFraction": 0.92122620271543987,
+            "LearningRate": 0.18701736618482581,
+            "LabelColumnName": "quantity",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.77115525110421423,
+        "RuntimeInSeconds": 1.586,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2",
+          "e0": {
+            "OutputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "smv",
+              "no_of_workers"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 5,
+            "MinimumExampleCountPerLeaf": 6,
+            "NumberOfTrees": 281,
+            "MaximumBinCountPerFeature": 778,
+            "FeatureFraction": 0.99999999,
+            "LearningRate": 0.20958809950723672,
+            "LabelColumnName": "quantity",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "ReplaceMissingValues",
+      "e1": "Concatenate",
+      "e2": "FastTreeRegression",
+      "e3": "FastForestRegression",
+      "e4": "LightGbmRegression",
+      "e5": "LbfgsPoissonRegressionRegression",
+      "e6": "SdcaRegression"
+    },
+    "Schema": "e0 * e1 * (e2 + e3 + e4 + e5 + e6)",
+    "MetricName": "RSquared",
+    "ModelFilePath": "C:\\Evbex\\Test\\InfoPro_AIBuild\\InfoPro_AIBuild\\Forecast Predict.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Tuner": "eci-cfo",
+    "Type": "RegressionTrainingOption",
+    "TrainingTime": 5400,
+    "OptimizeMetric": "RSquared",
+    "LabelColumn": "quantity",
+    "AvailableTrainers": [
+      "SDCA",
+      "LBFGS",
+      "LGBM",
+      "FASTTREE",
+      "FASTFOREST"
+    ],
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "CrossValidationValidationOption",
+      "NumberOfFolds": 5
+    }
+  }
+}

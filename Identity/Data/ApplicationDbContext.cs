@@ -9,9 +9,19 @@ namespace Identity.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
+
+        // HR
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Designation> Designation { get; set; }
         public DbSet<Department> Departments { get; set; }
+
+        // Planning
+        public DbSet<PlanStruct> PlanStructs { get; set; }
+
+        // IE
+        public DbSet<ProductionFloor> ProductionFloors { get; set; }
+        public DbSet<FlowWorker> FlowWorkers { get; set; }
+        public DbSet<Style> Styles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,7 +60,7 @@ namespace Identity.Data
                     IsDeleted = false,
                     CreatedOn = now,
                     UpdatedOn = now,
-                }) ;
+                });
         }
     }
 }

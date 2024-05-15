@@ -1,0 +1,94 @@
+<div>
+  <div class="flex justify-between">
+    <div class="flex">
+      <span
+        nz-icon
+        nzType="arrow-left"
+        nzTheme="outline"
+        class="text-2xl mt-1.5 mr-2"
+        (click)="goBack()"
+      ></span>
+      <p class="text-2xl">Production Styles</p>
+    </div>
+    <div class="flex mt-1.5">
+      <button type="button" nz-button (click)="isVisibleModal = true">
+        Add Style
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: hidden">
+    <nz-table #stylesTable [nzData]="styles">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th nzCustomFilter>Code</th>
+          <th nzCustomFilter>SMV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of stylesTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data.code }}</td>
+          <td>{{ data.smv }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisibleModal"
+  nzTitle="Create Style"
+  (nzOnCancel)="handleClose()"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="styleForm" [nzLayout]="'vertical'">
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>Code</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <input nz-input formControlName="code" placeholder="" />
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <div nz-row>
+          <div nz-col>
+            <nz-form-label nzRequired>SMV</nz-form-label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-control nzErrorTip="Required">
+              <nz-input-number
+                style="width: 100%"
+                formControlName="smv"
+                [nzMin]="0"
+                [nzStep]="0.25"
+              ></nz-input-number>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleClose()">Close</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="submitStyle()"
+      [nzLoading]="isLoading"
+      [disabled]="isLoading"
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>

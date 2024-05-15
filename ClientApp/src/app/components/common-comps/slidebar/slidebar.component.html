@@ -9,4 +9,30 @@
             <p>Office Optionals</p>
         </div>
     </div>
+    <div *ngIf="module === 'planning'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/planning'), 'deactive': !isActivatedRoute('/planning')}" (click)="redirect('/planning')">
+            <span nz-icon nzType="profile" nzTheme="outline"></span>
+            <p>Plan Structures</p>
+        </div>
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/planning/generate'), 'deactive': !isActivatedRoute('/planning/generate')}" (click)="redirect('/planning/generate')">
+            <span nz-icon nzType="reload" nzTheme="outline"></span>
+            <p>Generate Plans</p>
+        </div>
+    </div>
+    <div *ngIf="module === 'ie'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/ie'), 'deactive': !isActivatedRoute('/ie')}" (click)="redirect('/ie')">
+            <span nz-icon nzType="insert-row-below" nzTheme="outline"></span>
+            <p>Production Floors</p>
+        </div>
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/ie/styles'), 'deactive': !isActivatedRoute('/ie/styles')}" (click)="redirect('/ie/styles')">
+            <span nz-icon nzType="property-safety" nzTheme="outline"></span>
+            <p>Styles</p>
+        </div>
+    </div>
+    <div *ngIf="module === 'production'">
+        <div [ngClass]="{'slidebar_button': true, 'active': isActivatedRoute('/production'), 'deactive': !isActivatedRoute('/production')}" (click)="redirect('/production')">
+            <span nz-icon nzType="area-chart" nzTheme="outline"></span>
+            <p>Forecast Generate</p>
+        </div>
+    </div>
 </div>
