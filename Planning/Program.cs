@@ -24,8 +24,14 @@ builder.Services.AddDbContext<PlanningDbContext>(options => options.UseSqlServer
 
 builder.Services.AddTransient<IPlanningUnitOfWork, PlanningUnitOfWork>();
 builder.Services.AddTransient<IPlanStructService, PlanStructService>();
-builder.Services.AddTransient<IFileGenService, FileGenService>();
-// builder.Services.AddTransient<IDesignationService, DesignationService>();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddTransient<IFileGenService, FileGenLocalService>();
+}
+else
+{
+    builder.Services.AddTransient<IFileGenService, FileGenService>();
+}
 
 builder.Services.AddAuthentication(options =>
     {

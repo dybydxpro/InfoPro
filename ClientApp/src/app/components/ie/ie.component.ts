@@ -4,6 +4,7 @@ import { IeService } from './../../service/ie/ie.service';
 import { StylesService } from './../../service/ie/styles.service';
 import { EmployeeService } from '../../service/hr/employee.service';
 import { UntypedFormGroup, UntypedFormBuilder, FormArray, Validators } from '@angular/forms';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-ie',
@@ -25,6 +26,7 @@ export class IeComponent implements OnInit {
     private stylesService: StylesService,
     private employeeService: EmployeeService,
     private fb: UntypedFormBuilder,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,8 @@ export class IeComponent implements OnInit {
         })
       ]),
     });
+
+    // this.notificationService.savingSuccess("Production Floor Saving Successed!");
   }
 
   goBack(): void {

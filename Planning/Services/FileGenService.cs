@@ -40,7 +40,7 @@ public class FileGenService : IFileGenService
     {
         if (preProcess.File == null || preProcess.File.Length == 0)
             throw new Exception("File not selected");
-
+        
         string fileExtension = Path.GetExtension(preProcess.File.FileName);
         if (fileExtension != ".xls" && fileExtension != ".xlsx")
             throw new Exception("Invalid file format");

@@ -4,6 +4,7 @@ import { IeService } from './../../../service/ie/ie.service';
 import { StylesService } from './../../../service/ie/styles.service';
 import { EmployeeService } from './../../../service/hr/employee.service';
 import { UntypedFormGroup, UntypedFormBuilder, FormArray, Validators } from '@angular/forms';
+import { NotificationService } from '../../../common/notification.service';
 
 @Component({
   selector: 'app-styles',
@@ -23,6 +24,7 @@ export class StylesComponent implements OnInit {
     private stylesService: StylesService,
     private employeeService: EmployeeService,
     private fb: UntypedFormBuilder,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,7 @@ export class StylesComponent implements OnInit {
       code: [null, [Validators.required]],
       smv: [null, [Validators.min(0)]],
     });
+    this.notificationService.savingError("Style Saving Failed!");
   }
 
   getStyles(): void {
