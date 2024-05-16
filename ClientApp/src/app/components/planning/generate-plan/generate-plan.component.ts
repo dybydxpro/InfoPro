@@ -54,7 +54,7 @@ export class GeneratePlanComponent implements OnInit {
   };
 
   handleUpload(event: any): void {
-    // console.log(event);
+    // 
   }
 
   uploadToGen(): void {

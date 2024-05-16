@@ -126,9 +126,6 @@ export class HrComponent implements OnInit {
       'departmentId' : this.employeesForm.get('departmentId')?.value,
     };
 
-    console.log(new Date(this.employeesForm.get('dob')?.value).toISOString().split('T')[0]);
-    console.log(data);
-
     if(this.employeesForm.valid){
       this.employeeService.postEmployee(data).subscribe(
         (res: any) => {

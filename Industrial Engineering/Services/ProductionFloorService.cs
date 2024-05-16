@@ -18,23 +18,29 @@ namespace Industrial_Engineering.Services
 
         public List<ProductionFloor> GetProductionFloors()
         {
-            List<ProductionFloor> productionFloors = _unitOfWork.ProductionFloorRepository.GetAll().Include(p => p.Style).Include(p => p.FlowWorkers).ToList();
+            List<ProductionFloor> productionFloors = _unitOfWork.ProductionFloorRepository.GetAll()
+                .Include(p => p.Style)
+                .Include(p => p.FlowWorkers).ThenInclude(p => p.Employee).ToList();
             return productionFloors;
         }
 
         public ProductionFloor GetProductionFloorById(int id)
         {
-            ProductionFloor productionFloor = _unitOfWork.ProductionFloorRepository.GetAll().Include(p => p.Style).Include(p => p.FlowWorkers).Where(d => d.Id == id).FirstOrDefault();
+            ProductionFloor productionFloor = _unitOfWork.ProductionFloorRepository.GetAll()
+                .Include(p => p.Style).Include(p => p.FlowWorkers).Where(d => d.Id == id).FirstOrDefault();
             return productionFloor;
         }
 
         public ProductionFloor CreateProductionFloor(ProductionFloor productionFloor)
         {
+            List<FlowWorker> flowWorkers = productionFloor.FlowWorkers;
+            productionFloor.FlowWorkers = null;
+
             _unitOfWork.ProductionFloorRepository.Insert(productionFloor);
             _unitOfWork.SaveChanges();
             _unitOfWork.ProductionFloorRepository.Reload(productionFloor);
 
-            foreach(var worker in productionFloor.FlowWorkers)
+            foreach(var worker in flowWorkers)
             {
                 worker.ProductionFloorId = productionFloor.Id;
                 _unitOfWork.FlowWorkerRepository.Insert(worker);

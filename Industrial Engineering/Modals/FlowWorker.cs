@@ -12,8 +12,8 @@ namespace Industrial_Engineering.Modals
         public int EmployeeId { get; set; }
         public int ProductionFloorId { get; set; }
 
-        public virtual Employee Employee { get; set; }
-        public virtual ProductionFloor ProductionFloor { get; set; }
+        public virtual Employee? Employee { get; set; }
+        public virtual ProductionFloor? ProductionFloor { get; set; }
 
         #region Audit Fields
         public bool IsDeleted { get; set; }

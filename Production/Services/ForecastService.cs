@@ -35,7 +35,7 @@ namespace Production.Services
 
                 Forecast_Predict.ModelOutput output = _predictionEnginePool.Predict(input);
 
-                items.Add(0.25);
+                items.Add(output.Score);
             }
 
             foreach (var item in items) 

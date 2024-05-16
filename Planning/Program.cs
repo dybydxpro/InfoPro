@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Planning.Data;
 using Planning.Services;
 using Planning.Services.Context;
@@ -21,6 +22,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<PlanningDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 builder.Services.AddTransient<IPlanningUnitOfWork, PlanningUnitOfWork>();
 builder.Services.AddTransient<IPlanStructService, PlanStructService>();

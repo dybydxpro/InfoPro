@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Production.Data;
 using Production.Services.Context;
 using Production.Services;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,9 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddPredictionEnginePool<Forecast_Predict.ModelInput, Forecast_Predict.ModelOutput>().FromFile("ML/Forecast Predict.mlnet");
 builder.Services.AddDbContext<ProductionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnecion")));
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 builder.Services.AddTransient<IProductionUnitOfWork, ProductionUnitOfWork>();
 builder.Services.AddTransient<IForecastService, ForecastService>();

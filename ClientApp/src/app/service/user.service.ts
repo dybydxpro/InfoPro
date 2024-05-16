@@ -23,4 +23,11 @@ export class UserService {
   userDetails(): Observable<any> {
     return this.http.get<any>(`${env.baseUrl}/${env.authUrl}/User/userDetails`, {'headers': this.headers});
   }
+
+  userDetailsByToken(token: any): Observable<any> {
+    return this.http.get<any>(`${env.baseUrl}/${env.authUrl}/User/userDetails`, {'headers': new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
 }

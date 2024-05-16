@@ -87,7 +87,6 @@ export class OfficeComponent implements OnInit{
     }
     this.departmentService.postDepartment(this.department).subscribe(
       (res: any) => {
-        console.log(res);
         this.notificationService.savingSuccess('Department Saved!');
         this.getDepartments();
       }, (err: any) => {
@@ -104,7 +103,6 @@ export class OfficeComponent implements OnInit{
     }
     this.designationService.postDesignation(this.designation).subscribe(
       (res: any) => {
-        console.log(res);
         this.notificationService.savingSuccess('Designation Saved!');
         this.getDesignations();
       }, (err: any) => {

@@ -13,8 +13,8 @@ namespace Industrial_Engineering.Modals
         public double WorkingHours { get; set; }
         public int StyleId { get; set; }
 
-        public virtual Style Style { get; set; }
-        public virtual List<FlowWorker> FlowWorkers { get; set; }
+        public virtual Style? Style { get; set; }
+        public virtual List<FlowWorker>? FlowWorkers { get; set; }
 
         #region Audit Fields
         public bool IsDeleted { get; set; }

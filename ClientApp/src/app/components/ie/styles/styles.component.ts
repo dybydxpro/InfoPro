@@ -34,14 +34,12 @@ export class StylesComponent implements OnInit {
       code: [null, [Validators.required]],
       smv: [null, [Validators.min(0)]],
     });
-    this.notificationService.savingError("Style Saving Failed!");
   }
 
   getStyles(): void {
     this.stylesService.getAllStyles().subscribe(
       (res: any) => {
         this.styles = res;
-        console.log(res);
       }, (err: any) => {
         console.error(err);
       }
@@ -64,11 +62,12 @@ export class StylesComponent implements OnInit {
 
     this.stylesService.postStyle(data).subscribe(
       (res: any) => {
-        console.log(res);
         this.getStyles(); 
         this.isVisibleModal = false;
+        this.notificationService.savingSuccess("Style Saving Successed!");
       }, (err: any) => {
         console.error(err);
+        this.notificationService.savingError("Style Saving Failed!");
       }
     );
   }

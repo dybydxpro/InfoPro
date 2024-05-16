@@ -32,6 +32,7 @@ export class IeComponent implements OnInit {
   ngOnInit(): void {
     this.getProductionFloors();
     this.getStyles();
+    this.getEmployees();
 
     this.ieForm = this.fb.group({
       name: [null, [Validators.required]],
@@ -55,7 +56,6 @@ export class IeComponent implements OnInit {
     this.ieService.getAllProductionFloors().subscribe(
       (res: any) => {
         this.productionFloor = res;
-        console.log(res);
       },
       (err: any) => {
         console.error(err);
@@ -67,7 +67,6 @@ export class IeComponent implements OnInit {
     this.stylesService.getAllStyles().subscribe(
       (res: any) => {
         this.styles = res;
-        console.log(res);
       }, (err: any) => {
         console.error(err);
       }
@@ -78,7 +77,6 @@ export class IeComponent implements OnInit {
     this.employeeService.getAllEmployees().subscribe(
       (res: any) => {
         this.employees = res;
-        console.log(res);
       }, (err: any) => {
         console.error(err);
       }
@@ -105,7 +103,7 @@ export class IeComponent implements OnInit {
     this.selectedEmployees.forEach((emp: number) => {
       workers.push({
         "employeeId": emp,
-        "smv": 9999
+        "productionFloorId": 0
       });
     });
 
@@ -116,9 +114,9 @@ export class IeComponent implements OnInit {
       "flowWorkers": workers
     }
 
+    console.log(data)
     this.ieService.postProductionFloor(data).subscribe(
       (res: any) => {
-        console.log(res);
         this.getProductionFloors();
         this.isVisibleModal = false;
       }, (err: any) => {

@@ -72,11 +72,8 @@ export class RegisterComponent implements OnInit {
       },
     };
 
-    console.log(data);
-
     this.authService.register(data, "SuperAdmin").subscribe(
       (res: any) => {
-        console.log(res);
         this.toLogin();
       }, (err: any) => {
         console.error(err);

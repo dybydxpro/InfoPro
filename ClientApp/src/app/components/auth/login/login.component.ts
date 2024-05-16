@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentiols).subscribe(
       (res: any) => {
         localStorage.setItem("token", res.Token);
-        this.userService.userDetails().subscribe(
+        this.userService.userDetailsByToken(res.Token).subscribe(
           (res: any) => {
             localStorage.setItem("user", JSON.stringify(res));
             this.router.navigate(['/home']);

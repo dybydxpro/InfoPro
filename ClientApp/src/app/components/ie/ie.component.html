@@ -34,9 +34,20 @@
           <td>{{ i + 1 }}</td>
           <td>{{ data.name }}</td>
           <td>{{ data.workingHours }}</td>
-          <td>{{ data.style }}</td>
-          <td>{{ data.flowWorkers }}</td>
-          <td>{{ data.smv }}</td>
+          <td>{{ data.style.code }}</td>
+          <td nz-popover nzPopoverTitle="Employees" [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottomLeft" nzPopoverTrigger="hover">
+            {{ data.flowWorkers.length }}
+          </td>
+          <td>{{ data.style.smv }}</td>
+          <ng-template #contentTemplate>
+            <div class="w-full px-4 py-2">
+              <ol class="list-decimal list-outside">
+                @for (emp of data.flowWorkers; track $index) {
+                  <li>{{ emp.employee.firstName + " " + emp.employee.lastName }}</li> 
+                }
+              </ol>
+            </div>
+          </ng-template>
         </tr>
       </tbody>
     </nz-table>
@@ -124,7 +135,7 @@
     >
       <nz-option
         *ngFor="let item of employees"
-        [nzLabel]="item.name"
+        [nzLabel]="item.firstName + ' ' + item.lastName"
         [nzValue]="item.id"
       ></nz-option>
     </nz-select>

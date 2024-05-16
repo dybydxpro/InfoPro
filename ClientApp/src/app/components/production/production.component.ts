@@ -23,7 +23,6 @@ export class ProductionComponent implements OnInit {
 
     this.prodService.handleForecast().subscribe(
       (res: any) => {
-        console.log(res);
         this.forecast = res;
         this.isLoading = false;
       }, (err: any) => {
@@ -31,5 +30,9 @@ export class ProductionComponent implements OnInit {
         this.isLoading = false;
       }
     )
+  }
+
+  forecastConvert(val: number): string {
+    return val.toFixed(0);
   }
 }
